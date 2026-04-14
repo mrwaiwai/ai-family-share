@@ -1,4 +1,4 @@
-import { Brain, BookOpen, Users, Menu, X } from "lucide-react";
+import { Brain, BookOpen, Users, Menu, X, PenLine, ClipboardCheck } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
@@ -17,12 +17,20 @@ const Header = () => {
             <BookOpen className="mr-1 inline h-4 w-4" />
             學習模組
           </a>
+          <a href="#prompt-skills" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            提示詞技巧
+          </a>
+          <a href="#practice" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            <PenLine className="mr-1 inline h-4 w-4" />
+            練習場
+          </a>
+          <a href="#quiz" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
+            <ClipboardCheck className="mr-1 inline h-4 w-4" />
+            測驗
+          </a>
           <a href="#parent-guide" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             <Users className="mr-1 inline h-4 w-4" />
             家長指南
-          </a>
-          <a href="#prompt-skills" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
-            提示詞技巧
           </a>
         </nav>
 
@@ -38,8 +46,10 @@ const Header = () => {
         <nav className="border-t border-border bg-card p-4 md:hidden">
           <div className="flex flex-col gap-4">
             <a href="#modules" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>學習模組</a>
-            <a href="#parent-guide" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>家長指南</a>
             <a href="#prompt-skills" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>提示詞技巧</a>
+            <a href="#practice" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>練習場</a>
+            <a href="#quiz" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>測驗</a>
+            <a href="#parent-guide" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>家長指南</a>
           </div>
         </nav>
       )}

@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CheckCircle, XCircle, RotateCcw, ArrowRight, PenLine, Shuffle, Lightbulb, BookOpen, MessageSquare } from "lucide-react";
+import { CheckCircle, XCircle, RotateCcw, ArrowRight, PenLine, Shuffle, Lightbulb, BookOpen, MessageSquare, TrendingUp, Star } from "lucide-react";
+import { analyzePrompt, type FeedbackResult } from "@/lib/promptFeedback";
 
 interface Exercise {
   id: number;
@@ -163,6 +164,7 @@ const PracticeSection = () => {
   const [showSample, setShowSample] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
+  const [feedback, setFeedback] = useState<FeedbackResult | null>(null);
 
   const exercise = exercises[currentExercise];
 
@@ -179,6 +181,7 @@ const PracticeSection = () => {
     setShowSample(false);
     setSubmitted(false);
     setCheckedItems([]);
+    setFeedback(null);
   };
 
   const handleNext = () => {
@@ -299,6 +302,7 @@ const PracticeSection = () => {
                 setSubmitted(true);
                 setShowSample(true);
                 setCheckedItems(Array(exercise.checkpoints.length).fill(false));
+                setFeedback(analyzePrompt(userAnswer, exercise.category));
               }}
               disabled={userAnswer.length < 10}
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
@@ -368,7 +372,63 @@ const PracticeSection = () => {
             </div>
           )}
 
-          {/* Next Button */}
+          {/* Feedback Panel */}
+          {feedback && submitted && (
+            <div className="mt-6 rounded-xl border border-border bg-card p-6">
+              <div className="mb-4 flex items-center justify-between">
+                <h4 className="flex items-center gap-2 font-semibold text-foreground">
+                  <TrendingUp className="h-5 w-5 text-primary" />
+                  提示詞分析回饋
+                </h4>
+                <div className="flex items-center gap-2">
+                  <div className={`rounded-full px-3 py-1 text-xs font-bold ${
+                    feedback.level === "advanced"
+                      ? "bg-teal-light text-primary"
+                      : feedback.level === "intermediate"
+                      ? "bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400"
+                      : "bg-coral-light text-secondary"
+                  }`}>
+                    {feedback.score}分
+                  </div>
+                  <div className="flex">
+                    {[1, 2, 3].map((s) => (
+                      <Star
+                        key={s}
+                        className={`h-4 w-4 ${
+                          s <= (feedback.level === "advanced" ? 3 : feedback.level === "intermediate" ? 2 : 1)
+                            ? "fill-primary text-primary"
+                            : "text-border"
+                        }`}
+                      />
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* Individual items */}
+              <div className="space-y-3">
+                {feedback.items.map((item, i) => (
+                  <div key={i} className={`rounded-lg p-3 ${item.passed ? "bg-teal-light" : "bg-muted"}`}>
+                    <div className="mb-1 flex items-center gap-2">
+                      {item.passed ? (
+                        <CheckCircle className="h-4 w-4 flex-shrink-0 text-primary" />
+                      ) : (
+                        <XCircle className="h-4 w-4 flex-shrink-0 text-secondary" />
+                      )}
+                      <span className="text-sm font-medium text-foreground">{item.label}</span>
+                    </div>
+                    <p className="ml-6 text-xs text-muted-foreground">{item.suggestion}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Overall tip */}
+              <div className="mt-4 rounded-lg border border-primary/20 bg-teal-light p-4">
+                <p className="text-sm leading-relaxed text-foreground">{feedback.overallTip}</p>
+              </div>
+            </div>
+          )}
+
           <div className="mt-8 text-center">
             <button
               onClick={handleNext}
