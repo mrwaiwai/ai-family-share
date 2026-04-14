@@ -302,6 +302,7 @@ const PracticeSection = () => {
                 setSubmitted(true);
                 setShowSample(true);
                 setCheckedItems(Array(exercise.checkpoints.length).fill(false));
+                setFeedback(analyzePrompt(userAnswer, exercise.category));
               }}
               disabled={userAnswer.length < 10}
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
