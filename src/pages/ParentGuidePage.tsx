@@ -130,7 +130,7 @@ const peerScenarios = [
     title: "學英文生字（默書好悶？）",
     steps: {
       P: "「你今日最想記得邊個字？點解？」",
-      AI: "用 ChatGPT 生成關於 "rain" 的簡單例句和圖像描述。",
+      AI: "用 ChatGPT 生成關於 rain 的簡單例句和圖像描述。",
       E1: "「你 rain 發音幾準喎。」",
       E2: "「如果加 It is raining 就變成完整句子。」",
       R: "「你用一句英文講返你最記得嘅例句。」",
