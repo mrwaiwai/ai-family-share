@@ -181,6 +181,7 @@ const PracticeSection = () => {
     setShowSample(false);
     setSubmitted(false);
     setCheckedItems([]);
+    setFeedback(null);
   };
 
   const handleNext = () => {
