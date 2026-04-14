@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { CheckCircle, XCircle, RotateCcw, ArrowRight, PenLine, Shuffle, Lightbulb, BookOpen, MessageSquare } from "lucide-react";
+import { CheckCircle, XCircle, RotateCcw, ArrowRight, PenLine, Shuffle, Lightbulb, BookOpen, MessageSquare, TrendingUp, Star } from "lucide-react";
+import { analyzePrompt, type FeedbackResult } from "@/lib/promptFeedback";
 
 interface Exercise {
   id: number;
