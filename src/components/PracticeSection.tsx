@@ -206,16 +206,16 @@ const PracticeSection = () => {
   };
 
   return (
-    <section id="practice" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="mb-3 text-3xl font-bold text-foreground">✏️ 提示詞練習場</h2>
-          <p className="mx-auto max-w-lg text-muted-foreground">
+    <section className="py-4">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="mb-14">
+          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">✏️ 提示詞練習場</h1>
+          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
             動手寫提示詞！透過真實場景練習，提升你與 AI 協作的能力。每次隨機抽取 4 道題目。
           </p>
           <button
             onClick={handleShuffle}
-            className="mt-4 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            className="mt-6 inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
           >
             <Shuffle className="h-4 w-4" />
             隨機換題

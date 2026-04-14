@@ -63,8 +63,8 @@ const QuizSection = () => {
   // Results screen
   if (showResult) {
     return (
-      <section id="quiz" className="py-20">
-        <div className="container mx-auto px-4">
+      <section className="py-4">
+        <div className="container mx-auto px-6 lg:px-12">
           <div className="mx-auto max-w-xl text-center">
             <div className={`mb-6 inline-flex h-24 w-24 items-center justify-center rounded-full ${passed ? "bg-teal-light" : "bg-coral-light"}`}>
               {passed ? (
@@ -167,11 +167,11 @@ const QuizSection = () => {
 
   // Quiz questions
   return (
-    <section id="quiz" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="mb-3 text-3xl font-bold text-foreground">📝 AI 知識測驗</h2>
-          <p className="text-muted-foreground">
+    <section className="py-4">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="mb-14">
+          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">📝 AI 知識測驗</h1>
+          <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
             完成 15 條問題，達 60% 以上即可獲發電子證書
           </p>
         </div>
