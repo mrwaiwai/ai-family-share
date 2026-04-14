@@ -45,7 +45,7 @@ const Header = () => {
       {mobileOpen && (
         <nav className="border-t border-border bg-card p-4 md:hidden">
           <div className="flex flex-col gap-4">
-            <a href="#modules" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>學習模組</a>
+            <a href="#modules" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>AI 知識</a>
             <a href="#prompt-skills" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>提示詞技巧</a>
             <a href="#practice" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>練習場</a>
             <a href="#quiz" className="text-sm font-medium text-muted-foreground" onClick={() => setMobileOpen(false)}>測驗</a>
