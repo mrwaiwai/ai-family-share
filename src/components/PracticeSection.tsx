@@ -206,10 +206,10 @@ const PracticeSection = () => {
   };
 
   return (
-    <section id="practice" className="py-20">
-      <div className="container mx-auto px-4">
-        <div className="mb-12 text-center">
-          <h2 className="mb-3 text-3xl font-bold text-foreground">✏️ 提示詞練習場</h2>
+    <section className="py-4">
+      <div className="container mx-auto px-6 lg:px-12">
+        <div className="mb-14">
+          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">✏️ 提示詞練習場</h1>
           <p className="mx-auto max-w-lg text-muted-foreground">
             動手寫提示詞！透過真實場景練習，提升你與 AI 協作的能力。每次隨機抽取 4 道題目。
           </p>
