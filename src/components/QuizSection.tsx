@@ -172,7 +172,7 @@ const QuizSection = () => {
         <div className="mb-12 text-center">
           <h2 className="mb-3 text-3xl font-bold text-foreground">📝 AI 知識測驗</h2>
           <p className="text-muted-foreground">
-            完成 5 條問題，達 60% 以上即可獲發電子證書
+            完成 15 條問題，達 60% 以上即可獲發電子證書
           </p>
         </div>
 
