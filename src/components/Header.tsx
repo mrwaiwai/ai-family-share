@@ -1,4 +1,4 @@
-import { Brain, BookOpen, Users, Menu, X } from "lucide-react";
+import { Brain, BookOpen, Users, Menu, X, PenLine, ClipboardCheck } from "lucide-react";
 import { useState } from "react";
 
 const Header = () => {
