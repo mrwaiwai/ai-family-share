@@ -164,8 +164,7 @@ const PracticeSection = () => {
   const [showSample, setShowSample] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [checkedItems, setCheckedItems] = useState<boolean[]>([]);
-
-  const exercise = exercises[currentExercise];
+  const [feedback, setFeedback] = useState<FeedbackResult | null>(null);
 
   const handleShuffle = () => {
     const shuffled = [...allExercises].sort(() => Math.random() - 0.5).slice(0, 4);
