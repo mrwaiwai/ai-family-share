@@ -15,7 +15,7 @@ const Header = () => {
         <nav className="hidden items-center gap-8 md:flex">
           <a href="#modules" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             <BookOpen className="mr-1 inline h-4 w-4" />
-            學習模組
+            AI 知識
           </a>
           <a href="#prompt-skills" className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary">
             提示詞技巧
