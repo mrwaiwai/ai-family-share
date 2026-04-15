@@ -1,7 +1,6 @@
 import { useRef } from "react";
 import { X, Download } from "lucide-react";
 import certificateBg from "@/assets/certificate-bg.jpg";
-import html2canvas from "html2canvas";
 
 interface CertificateModalProps {
   name: string;
@@ -21,6 +20,7 @@ const CertificateModal = ({ name, score, total, onClose }: CertificateModalProps
   const handleDownload = async () => {
     if (!certRef.current) return;
     try {
+      const { default: html2canvas } = await import("html2canvas");
       const canvas = await html2canvas(certRef.current, {
         scale: 2,
         useCORS: true,

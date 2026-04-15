@@ -1,6 +1,6 @@
 import { Brain, BookOpen, PenLine, ClipboardCheck, Users, Home, Lightbulb } from "lucide-react";
 import { NavLink } from "@/components/NavLink";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   Sidebar,
   SidebarContent,
@@ -35,12 +35,12 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible="icon">
       <SidebarHeader className="border-b border-border p-4">
-        <a href="/" className="flex items-center gap-2.5">
+        <Link to="/" className="flex items-center gap-2.5">
           <Brain className="h-7 w-7 flex-shrink-0 text-primary" />
           {!collapsed && (
             <span className="text-lg font-bold text-foreground">AI 親子學堂</span>
           )}
-        </a>
+        </Link>
       </SidebarHeader>
 
       <SidebarContent>

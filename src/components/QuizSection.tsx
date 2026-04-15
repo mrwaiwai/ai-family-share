@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { Suspense, lazy, useState } from "react";
 import { quizQuestions } from "@/data/quizData";
 import { CheckCircle, XCircle, ArrowRight, RotateCcw, Award } from "lucide-react";
-import CertificateModal from "./CertificateModal";
+
+const CertificateModal = lazy(() => import("./CertificateModal"));
 
 const QuizSection = () => {
   const [currentQ, setCurrentQ] = useState(0);
@@ -154,12 +155,14 @@ const QuizSection = () => {
         </div>
 
         {showCertificate && (
-          <CertificateModal
-            name={userName}
-            score={score}
-            total={quizQuestions.length}
-            onClose={() => setShowCertificate(false)}
-          />
+          <Suspense fallback={null}>
+            <CertificateModal
+              name={userName}
+              score={score}
+              total={quizQuestions.length}
+              onClose={() => setShowCertificate(false)}
+            />
+          </Suspense>
         )}
       </section>
     );

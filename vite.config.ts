@@ -1,10 +1,12 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
-import { componentTagger } from "lovable-tagger";
 
-// https://vitejs.dev/config/
-export default defineConfig(({ mode }) => ({
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/")[1];
+const isGitHubPagesBuild = process.env.GITHUB_ACTIONS === "true" && repositoryName;
+
+export default defineConfig(() => ({
+  base: isGitHubPagesBuild ? `/${repositoryName}/` : "/",
   server: {
     host: "::",
     port: 8080,
@@ -12,11 +14,32 @@ export default defineConfig(({ mode }) => ({
       overlay: false,
     },
   },
-  plugins: [react(), mode === "development" && componentTagger()].filter(Boolean),
+  plugins: [react()],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
-    dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime", "@tanstack/react-query", "@tanstack/query-core"],
+    dedupe: ["react", "react-dom", "react/jsx-runtime", "react/jsx-dev-runtime"],
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (!id.includes("node_modules")) return;
+
+          if (id.includes("react") || id.includes("scheduler")) {
+            return "react-vendor";
+          }
+
+          if (id.includes("react-router") || id.includes("@radix-ui") || id.includes("lucide-react")) {
+            return "ui-vendor";
+          }
+
+          if (id.includes("html2canvas")) {
+            return "certificate-tools";
+          }
+        },
+      },
+    },
   },
 }));
