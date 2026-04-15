@@ -1,4 +1,4 @@
-import { Copy, CheckCircle, ChevronDown, ChevronUp, Lightbulb } from "lucide-react";
+import { Copy, CheckCircle, ChevronDown, ChevronUp, Lightbulb, Sparkles, ArrowRight } from "lucide-react";
 import { useState } from "react";
 
 const promptExamples = [
@@ -51,27 +51,29 @@ const PromptCard = ({ title, subtitle, prompt, tips }: typeof promptExamples[0])
   };
 
   return (
-    <div className="rounded-2xl border border-border bg-card p-8 flex flex-col">
-      <h3 className="mb-2 text-xl font-semibold text-foreground">{title}</h3>
-      <p className="mb-5 text-sm text-muted-foreground">{subtitle}</p>
-      <pre className="mb-5 max-h-44 overflow-y-auto whitespace-pre-wrap rounded-xl bg-muted p-5 text-sm leading-relaxed text-foreground flex-1">
+    <div className="flex flex-col rounded-[2rem] border-[4px] border-ink bg-white p-6 shadow-playful">
+      <div className="mb-4 inline-flex w-fit rounded-full border-[3px] border-ink bg-bubble-yellow px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-ink shadow-playful">
+        {subtitle}
+      </div>
+      <h3 className="mb-4 font-display text-3xl font-extrabold text-ink">{title}</h3>
+      <pre className="mb-5 max-h-44 flex-1 overflow-y-auto whitespace-pre-wrap rounded-[1.3rem] border-[3px] border-ink bg-background p-5 text-sm font-bold leading-relaxed text-ink">
         {prompt}
       </pre>
 
       <button
         onClick={() => setShowTips(!showTips)}
-        className="mb-4 flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
+        className="mb-4 inline-flex items-center gap-2 text-sm font-extrabold text-ink transition-opacity hover:opacity-80"
       >
-        <Lightbulb className="h-4 w-4" />
+        <Lightbulb className="h-4 w-4 text-secondary" />
         使用貼士
         {showTips ? <ChevronUp className="h-3.5 w-3.5" /> : <ChevronDown className="h-3.5 w-3.5" />}
       </button>
 
       {showTips && (
-        <ul className="mb-5 space-y-2 rounded-xl bg-teal-light p-4">
+        <ul className="mb-5 space-y-2 rounded-[1.3rem] border-[3px] border-ink bg-teal-light p-4">
           {tips.map((tip) => (
-            <li key={tip} className="flex items-start gap-2.5 text-sm text-foreground">
-              <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+            <li key={tip} className="flex items-start gap-2.5 text-sm font-bold text-ink">
+              <span className="mt-1.5 h-2 w-2 flex-shrink-0 rounded-full bg-secondary" />
               {tip}
             </li>
           ))}
@@ -80,7 +82,7 @@ const PromptCard = ({ title, subtitle, prompt, tips }: typeof promptExamples[0])
 
       <button
         onClick={handleCopy}
-        className="inline-flex items-center justify-center gap-2 rounded-xl bg-primary px-5 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-ink bg-bubble-pink px-5 py-3 text-sm font-extrabold text-ink shadow-playful transition-transform hover:-translate-y-0.5"
       >
         {copied ? <CheckCircle className="h-4 w-4" /> : <Copy className="h-4 w-4" />}
         {copied ? "已複製" : "複製提示詞"}
@@ -90,19 +92,98 @@ const PromptCard = ({ title, subtitle, prompt, tips }: typeof promptExamples[0])
 };
 
 const PromptSkillsPage = () => (
-  <div className="py-12 lg:py-16">
-    <div className="container mx-auto px-6 lg:px-12">
-      <div className="mb-14">
-        <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">💡 提示詞技巧</h1>
-        <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          即用即試的提示詞模板，助你引導孩子學習。點擊「複製提示詞」即可貼到 AI 工具使用。
-        </p>
+  <div className="py-10 lg:py-14">
+    <div className="container mx-auto px-4 md:px-6 lg:px-10">
+      <div className="rounded-[2.2rem] border-[4px] border-ink bg-white p-6 shadow-playful md:p-8 lg:p-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-bubble-yellow px-4 py-2 shadow-playful">
+              <Sparkles className="h-4 w-4 text-ink" />
+              <span className="font-display text-sm font-extrabold uppercase tracking-[0.15em] text-ink">Prompt Guide</span>
+            </div>
+            <h1 className="mt-5 font-display text-4xl font-extrabold leading-tight text-ink md:text-5xl">提示詞技巧</h1>
+            <p className="mt-4 max-w-3xl text-base font-bold leading-relaxed text-ink/75 md:text-lg">
+              幫家長整理常用又易上手的提示詞框架。你可以先理解每種提問方式適合什麼情境，再直接複製模板到 AI 工具實戰使用。
+            </p>
+          </div>
+
+          <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[390px]">
+            <div className="rounded-[1.4rem] border-[3px] border-ink bg-bubble-pink p-4 shadow-playful">
+              <p className="font-display text-2xl font-extrabold text-ink">6</p>
+              <p className="text-sm font-bold text-ink/70">常用框架</p>
+            </div>
+            <div className="rounded-[1.4rem] border-[3px] border-ink bg-teal-light p-4 shadow-playful">
+              <p className="font-display text-2xl font-extrabold text-ink">可直接複製</p>
+              <p className="text-sm font-bold text-ink/70">即用模板</p>
+            </div>
+            <div className="rounded-[1.4rem] border-[3px] border-ink bg-bubble-green p-4 shadow-playful">
+              <p className="font-display text-2xl font-extrabold text-ink">先學</p>
+              <p className="text-sm font-bold text-ink/70">再帶入陪學</p>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        {promptExamples.map((ex) => (
-          <PromptCard key={ex.title} {...ex} />
-        ))}
+      <div className="mt-8 grid gap-6 xl:grid-cols-[0.95fr_2.05fr]">
+        <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
+          <div className="rounded-[2rem] border-[4px] border-ink bg-bubble-yellow p-6 shadow-playful">
+            <h2 className="font-display text-2xl font-extrabold text-ink">先看哪幾種？</h2>
+            <div className="mt-4 space-y-3">
+              {[
+                "第一次用 AI：先看 RGC 框架。",
+                "想訓練孩子思考：先看蘇格拉底式引導。",
+                "想做生活化練習：先看情境模擬法。",
+                "想提升判斷力：看看錯誤糾正法。",
+              ].map((item) => (
+                <div key={item} className="rounded-[1.2rem] border-[3px] border-ink bg-white px-4 py-3 text-sm font-bold leading-relaxed text-ink shadow-playful">
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="rounded-[2rem] border-[4px] border-ink bg-white p-6 shadow-playful">
+            <h2 className="font-display text-2xl font-extrabold text-ink">使用方法</h2>
+            <div className="mt-4 space-y-3">
+              {[
+                "先選一個最貼近你目前需要的框架。",
+                "先複製模板，再按孩子年齡、科目、情境微調。",
+                "用完一次後回看效果，再修改角色、目標或背景。",
+              ].map((step, index) => (
+                <div key={step} className="rounded-[1.2rem] border-[3px] border-ink bg-background p-4">
+                  <p className="font-display text-xl font-extrabold text-ink">0{index + 1}</p>
+                  <p className="mt-2 text-sm font-bold leading-relaxed text-ink/75">{step}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        <div className="space-y-8">
+          <section className="rounded-[2rem] border-[4px] border-ink bg-coral-light p-6 shadow-playful md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-4 py-2 shadow-playful">
+              <ArrowRight className="h-4 w-4 text-ink" />
+              <span className="font-display text-sm font-extrabold uppercase tracking-[0.15em] text-ink">重點提醒</span>
+            </div>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {[
+                "先講清楚 AI 扮演什麼角色。",
+                "目標要具體，唔好只講『幫我教』。",
+                "背景越完整，回應越接近家長真實需要。",
+              ].map((item) => (
+                <div key={item} className="rounded-[1.3rem] border-[3px] border-ink bg-white p-4 shadow-playful">
+                  <p className="text-sm font-bold leading-relaxed text-ink/80">{item}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <div className="grid gap-6 lg:grid-cols-2">
+            {promptExamples.map((ex) => (
+              <PromptCard key={ex.title} {...ex} />
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   </div>

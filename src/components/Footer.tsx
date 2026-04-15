@@ -7,9 +7,6 @@ const Footer = () => (
         <Brain className="h-5 w-5 text-primary" />
         <span className="font-semibold text-foreground">AI 親子學堂</span>
       </div>
-      <p className="text-xs text-muted-foreground">
-        基於 ISE 親子科技教育工作坊內容 · 2026
-      </p>
     </div>
   </footer>
 );

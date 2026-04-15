@@ -51,16 +51,16 @@ const PromptCard = ({ title, subtitle, prompt, tips }: typeof promptExamples[0])
   };
 
   return (
-    <div className="rounded-xl border border-border bg-card p-6 flex flex-col">
-      <h3 className="mb-1 text-lg font-semibold text-foreground">{title}</h3>
-      <p className="mb-4 text-sm text-muted-foreground">{subtitle}</p>
-      <pre className="mb-4 max-h-36 overflow-y-auto whitespace-pre-wrap rounded-lg bg-muted p-4 text-xs leading-relaxed text-foreground flex-1">
+    <div className="flex flex-col rounded-xl border border-border bg-card p-6">
+      <h3 className="mb-1 text-xl font-semibold text-foreground">{title}</h3>
+      <p className="mb-4 text-base text-muted-foreground">{subtitle}</p>
+      <pre className="mb-4 max-h-40 overflow-y-auto whitespace-pre-wrap rounded-lg bg-muted p-4 text-sm leading-relaxed text-foreground flex-1">
         {prompt}
       </pre>
 
       <button
         onClick={() => setShowTips(!showTips)}
-        className="mb-3 flex items-center gap-1 text-xs font-medium text-primary transition-colors hover:text-primary/80"
+        className="mb-3 flex items-center gap-1 text-sm font-medium text-primary transition-colors hover:text-primary/80"
       >
         <Lightbulb className="h-3.5 w-3.5" />
         使用貼士
@@ -70,7 +70,7 @@ const PromptCard = ({ title, subtitle, prompt, tips }: typeof promptExamples[0])
       {showTips && (
         <ul className="mb-4 space-y-1.5 rounded-lg bg-teal-light p-3">
           {tips.map((tip) => (
-            <li key={tip} className="flex items-start gap-2 text-xs text-foreground">
+            <li key={tip} className="flex items-start gap-2 text-sm leading-relaxed text-foreground">
               <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
               {tip}
             </li>
@@ -80,7 +80,7 @@ const PromptCard = ({ title, subtitle, prompt, tips }: typeof promptExamples[0])
 
       <button
         onClick={handleCopy}
-        className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-2 text-xs font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+        className="inline-flex items-center justify-center gap-2 rounded-md bg-primary px-4 py-3 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
       >
         {copied ? <CheckCircle className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}
         {copied ? "已複製" : "複製提示詞"}
@@ -94,7 +94,7 @@ const PromptSkillsSection = () => (
     <div className="container mx-auto px-4">
       <div className="mb-12 text-center">
         <h2 className="mb-3 text-3xl font-bold text-foreground">提示詞技巧</h2>
-        <p className="text-muted-foreground">即用即試的提示詞模板，助你引導孩子學習</p>
+        <p className="text-lg leading-relaxed text-muted-foreground">即用即試的提示詞模板，助你引導孩子學習</p>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {promptExamples.map((ex) => (

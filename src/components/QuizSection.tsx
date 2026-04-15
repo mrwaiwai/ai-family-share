@@ -94,13 +94,13 @@ const QuizSection = () => {
                     value={nameInput}
                     onChange={(e) => setNameInput(e.target.value)}
                     placeholder="輸入你的姓名"
-                    className="flex-1 rounded-lg border border-border bg-card px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
+                    className="flex-1 rounded-lg border border-border bg-card px-4 py-3 text-base text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                     onKeyDown={(e) => e.key === "Enter" && handleClaimCertificate()}
                   />
                   <button
                     onClick={handleClaimCertificate}
                     disabled={!nameInput.trim()}
-                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
+                    className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
                   >
                     <Award className="h-4 w-4" />
                     領取證書
@@ -117,7 +117,7 @@ const QuizSection = () => {
 
             <button
               onClick={handleRestart}
-              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-3 text-base font-medium text-foreground transition-colors hover:bg-muted"
             >
               <RotateCcw className="h-4 w-4" />
               重新測驗
@@ -138,14 +138,14 @@ const QuizSection = () => {
                         ) : (
                           <XCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-secondary" />
                         )}
-                        <p className="text-sm font-medium text-foreground">{q.question}</p>
+                        <p className="text-base font-medium leading-relaxed text-foreground">{q.question}</p>
                       </div>
                       {!correct && (
-                        <p className="ml-6 text-xs text-muted-foreground">
+                        <p className="ml-6 text-sm leading-relaxed text-muted-foreground">
                           正確答案：{q.options[q.correctIndex]}
                         </p>
                       )}
-                      <p className="ml-6 mt-1 text-xs text-muted-foreground">{q.explanation}</p>
+                      <p className="ml-6 mt-1 text-sm leading-relaxed text-muted-foreground">{q.explanation}</p>
                     </div>
                   );
                 })}
@@ -173,15 +173,15 @@ const QuizSection = () => {
     <section className="py-4">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="mb-14">
-          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">📝 AI 知識測驗</h1>
+          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">📝 家長 AI 知識測驗</h1>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            完成 15 條問題，達 60% 以上即可獲發電子證書
+            用 15 條問題快速檢查你對 AI 基礎概念、工具使用與陪學安全原則的掌握程度。
           </p>
         </div>
 
         {/* Progress bar */}
         <div className="mx-auto mb-8 max-w-2xl">
-          <div className="mb-2 flex items-center justify-between text-sm text-muted-foreground">
+          <div className="mb-2 flex items-center justify-between text-base text-muted-foreground">
             <span>第 {currentQ + 1} 題 / 共 {quizQuestions.length} 題</span>
             <span>{Math.round(((currentQ + (answered ? 1 : 0)) / quizQuestions.length) * 100)}%</span>
           </div>
@@ -198,7 +198,7 @@ const QuizSection = () => {
         {/* Question card */}
         <div className="mx-auto max-w-2xl">
           <div className="rounded-xl border border-border bg-card p-8">
-            <h3 className="mb-6 text-lg font-semibold leading-relaxed text-foreground">
+            <h3 className="mb-6 text-xl font-semibold leading-relaxed text-foreground">
               {question.question}
             </h3>
 
@@ -221,10 +221,10 @@ const QuizSection = () => {
                     onClick={() => handleSelect(i)}
                     className={`flex w-full items-start gap-3 rounded-lg border p-4 text-left transition-all ${optionStyle}`}
                   >
-                    <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full border border-border bg-muted text-xs font-medium text-muted-foreground">
+                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full border border-border bg-muted text-sm font-medium text-muted-foreground">
                       {String.fromCharCode(65 + i)}
                     </span>
-                    <span className="text-sm text-foreground">{option}</span>
+                    <span className="text-base leading-relaxed text-foreground">{option}</span>
                     {answered && i === question.correctIndex && (
                       <CheckCircle className="ml-auto h-5 w-5 flex-shrink-0 text-primary" />
                     )}
@@ -239,10 +239,10 @@ const QuizSection = () => {
             {/* Explanation */}
             {showExplanation && answered && (
               <div className={`mt-6 rounded-lg p-4 ${isCorrect ? "bg-teal-light" : "bg-coral-light"}`}>
-                <p className="text-sm font-medium text-foreground">
+                <p className="text-base font-medium text-foreground">
                   {isCorrect ? "✅ 正確！" : "❌ 不正確"}
                 </p>
-                <p className="mt-1 text-sm text-muted-foreground">{question.explanation}</p>
+                <p className="mt-1 text-base leading-relaxed text-muted-foreground">{question.explanation}</p>
               </div>
             )}
 
@@ -251,7 +251,7 @@ const QuizSection = () => {
               <div className="mt-6 text-right">
                 <button
                   onClick={handleNext}
-                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
                   {currentQ < quizQuestions.length - 1 ? "下一題" : "查看結果"}
                   <ArrowRight className="h-4 w-4" />

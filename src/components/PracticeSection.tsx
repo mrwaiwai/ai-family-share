@@ -209,9 +209,9 @@ const PracticeSection = () => {
     <section className="py-4">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="mb-14">
-          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">✏️ 提示詞練習場</h1>
+          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">✏️ 提示詞實戰練習</h1>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            動手寫提示詞！透過真實場景練習，提升你與 AI 協作的能力。每次隨機抽取 4 道題目。
+            這一頁讓家長用真實情境練習寫提示詞，逐步熟習怎樣向 AI 說得更清楚。每次會隨機抽取 4 道題目。
           </p>
           <button
             onClick={handleShuffle}
@@ -251,7 +251,7 @@ const PracticeSection = () => {
             <div className="rounded-lg bg-muted p-4">
               <p className="flex items-center gap-2 text-sm font-medium text-foreground">
                 <PenLine className="h-4 w-4 text-primary" />
-                你的任務：
+                家長練習任務：
               </p>
               <p className="mt-1 text-sm text-muted-foreground">{exercise.task}</p>
             </div>

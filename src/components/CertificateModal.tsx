@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { X, Download } from "lucide-react";
-import certificateBg from "@/assets/certificate-bg.jpg";
+import certificateBg from "@/assets/certificate-bg.svg";
 
 interface CertificateModalProps {
   name: string;
@@ -49,7 +49,7 @@ const CertificateModal = ({ name, score, total, onClose }: CertificateModalProps
         {/* Certificate */}
         <div
           ref={certRef}
-          className="relative mx-auto overflow-hidden rounded-lg"
+          className="relative mx-auto overflow-hidden rounded-[32px] shadow-[0_18px_0_0_rgba(27,34,64,1)]"
           style={{ aspectRatio: "1200 / 850" }}
         >
           <img
@@ -57,25 +57,51 @@ const CertificateModal = ({ name, score, total, onClose }: CertificateModalProps
             alt=""
             className="absolute inset-0 h-full w-full object-cover"
           />
-          <div className="relative flex h-full flex-col items-center justify-center px-12 py-10 text-center">
-            <p className="mb-1 text-xs tracking-[0.3em] text-amber-700 uppercase">
-              Certificate of Completion
-            </p>
-            <h2 className="mb-1 text-2xl font-bold text-amber-900 md:text-3xl">
-              完 成 證 書
-            </h2>
-            <div className="mx-auto my-4 h-px w-32 bg-amber-600/40" />
-            <p className="mb-1 text-sm text-amber-800">茲證明</p>
-            <p className="mb-4 text-3xl font-bold text-amber-900 md:text-4xl">{name}</p>
-            <p className="mb-2 max-w-md text-sm leading-relaxed text-amber-800">
-              已完成「AI 親子學堂」知識測驗
-              <br />
-              並取得 {score}/{total} 分（{Math.round((score / total) * 100)}%）的成績
-            </p>
-            <div className="mx-auto my-4 h-px w-48 bg-amber-600/30" />
-            <p className="text-xs text-amber-700">
-              ISE 親子科技教育工作坊 · {today}
-            </p>
+          <div className="relative flex h-full flex-col justify-between px-20 py-14 text-center text-slate-900">
+            <div className="flex flex-col items-center">
+              <div className="mb-4 inline-flex items-center gap-3 rounded-full border-4 border-slate-900 bg-[#ff7aa2] px-6 py-3 text-sm font-black uppercase tracking-[0.12em] text-slate-900 shadow-[0_8px_0_0_rgba(27,34,64,1)]">
+                <span className="text-lg">🎓</span>
+                Parent AI Learning
+              </div>
+              <p className="mb-2 text-xs font-bold tracking-[0.24em] text-slate-700 uppercase">
+                Certificate of Completion
+              </p>
+              <h2 className="mb-2 text-4xl font-black text-slate-900">
+                完成證書
+              </h2>
+              <p className="max-w-2xl text-sm font-semibold leading-relaxed text-slate-700">
+                茲證明以下學員已完成網站學習與測驗
+              </p>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <div className="mb-4 flex w-full max-w-[680px] items-center justify-center rounded-[28px] border-4 border-slate-900 bg-[#ffd84d] px-8 py-5 shadow-[0_10px_0_0_rgba(27,34,64,1)]">
+                <p className="break-words text-center text-3xl font-black leading-tight text-slate-900">
+                  {name}
+                </p>
+              </div>
+              <p className="max-w-2xl text-base leading-relaxed text-slate-700">
+                已完成「家長 AI 學習指南」知識測驗，
+                並取得 <span className="font-black text-slate-900">{score}/{total}</span> 分
+                （<span className="font-black text-slate-900">{Math.round((score / total) * 100)}%</span>）。
+              </p>
+              <div className="mt-4 flex flex-wrap items-center justify-center gap-3 text-xs font-bold text-slate-700">
+                <span className="rounded-full border-4 border-slate-900 bg-[#95d46b] px-4 py-2 shadow-[0_6px_0_0_rgba(27,34,64,1)]">
+                  家長 AI 知識測驗
+                </span>
+                <span className="rounded-full border-4 border-slate-900 bg-[#4cc9f0] px-4 py-2 shadow-[0_6px_0_0_rgba(27,34,64,1)]">
+                  完成率達標
+                </span>
+              </div>
+            </div>
+
+            <div className="flex flex-col items-center">
+              <div className="w-full max-w-[560px] border-b-4 border-dashed border-slate-700/70" />
+              <div className="mt-3 text-center">
+                <p className="mb-2 text-xs font-bold uppercase tracking-[0.22em] text-slate-500">Date</p>
+                <p className="text-base font-black leading-tight text-slate-800">{today}</p>
+              </div>
+            </div>
           </div>
         </div>
 

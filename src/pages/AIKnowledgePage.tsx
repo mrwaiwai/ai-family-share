@@ -1,13 +1,13 @@
-import { Bot, Wrench, BookOpen, AlertTriangle, Puzzle, Users, ChevronDown, ChevronUp } from "lucide-react";
-import { useState } from "react";
+import { Bot, Wrench, BookOpen, AlertTriangle, Puzzle, Users, Sparkles, ArrowRight } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 interface KnowledgeItem {
   icon: typeof Bot;
   title: string;
   description: string;
-  color: string;
-  iconColor: string;
   tag: string;
+  category: "入門認識" | "實際使用" | "安全與陪伴";
+  accent: string;
   details: string[];
   keyPoints: { label: string; value: string }[];
 }
@@ -16,211 +16,313 @@ const knowledgeItems: KnowledgeItem[] = [
   {
     icon: Bot,
     title: "什麼是人工智能 (AI)？",
-    description: "了解 AI 的基本概念，分辨傳統 AI 與生成式 AI 的差異，認識 AI 如何影響日常生活。",
-    color: "bg-teal-light",
-    iconColor: "text-primary",
+    description: "先建立基礎概念，知道 AI 會做什麼、唔會做什麼，避免一開始就對 AI 有錯誤想像。",
     tag: "基礎入門",
+    category: "入門認識",
+    accent: "bg-bubble-yellow",
     details: [
-      "人工智能 (AI) 是讓電腦模擬人類思考和學習的技術，能夠處理語言、圖像、聲音等資訊。",
-      "傳統 AI（如 Siri、Alexa）只能遵循預設規則執行特定任務，例如設定鬧鐘、查天氣。",
-      "生成式 AI（如 ChatGPT、Gemini）能深度學習並產生全新內容——文字、圖像、音樂、程式碼等。",
-      "AI 不是「有思想的機器」，它通過分析大量數據中的模式來預測和生成回應，沒有真正的理解力。",
-      "TPG 思考邏輯：Think（輸入/思考）→ Process（處理/分析）→ Generate（生成/輸出），這是所有 AI 模型的基本運作方式。",
-      "AI 的訓練數據來自互聯網上的文本、書籍、網站等，因此可能包含偏見或過時資訊。",
+      "人工智能（AI）是讓電腦模擬人類處理資訊的技術，可以分析語言、圖像、聲音和資料模式。",
+      "傳統 AI 通常只會完成明確任務，例如語音助理、路線建議、垃圾郵件過濾。",
+      "生成式 AI（如 ChatGPT、Gemini）能根據大量資料模式產生新內容，例如文字、圖像、簡報和程式碼。",
+      "AI 並不是真的『理解』世界，而是根據統計模式預測最可能出現的下一句或下一個結果。",
+      "可以用 TPG 去理解：Think（接收輸入）→ Process（分析）→ Generate（產生輸出）。",
+      "因為訓練資料來自大量網上內容，所以 AI 可能包含過時資料、偏見或不準確的回應。",
     ],
     keyPoints: [
-      { label: "核心概念", value: "模式識別 + 內容生成" },
-      { label: "運作原理", value: "TPG：輸入 → 處理 → 輸出" },
-      { label: "關鍵區別", value: "傳統 AI vs 生成式 AI" },
-      { label: "重要認知", value: "AI 沒有真正的思考能力" },
+      { label: "一句理解", value: "AI 是會預測和生成內容的工具" },
+      { label: "重要提醒", value: "AI 看似聰明，但不等於真正明白" },
+      { label: "家長角度", value: "先懂原理，先容易判斷回應值不值得信" },
     ],
   },
   {
     icon: Wrench,
     title: "認識不同的 AI 工具",
-    description: "比較市面上主流 AI 工具的功能、特點和適用場景，幫助你選擇最合適的工具。",
-    color: "bg-coral-light",
-    iconColor: "text-secondary",
+    description: "唔同工具有唔同強項，家長唔需要全部都識，但要知道點揀一個最適合當下目的。",
     tag: "工具介紹",
+    category: "入門認識",
+    accent: "bg-bubble-pink",
     details: [
-      "ChatGPT（OpenAI）：最廣泛使用的 AI 對話工具，支援文字、圖像輸入，有免費版（GPT-3.5）和付費版（GPT-4）。擅長寫作、翻譯、編程、教學。",
-      "Google Gemini：Google 開發，深度整合 Google 搜索和服務。擅長多模態（文字+圖片+影片），中文理解力強，適合學術研究和資料整理。",
-      "DeepSeek：中國深度求索公司開發，開源模型，免費使用。數學和編程能力強，中文表現優秀，適合學習理科知識。",
-      "Claude（Anthropic）：注重安全和準確性，擅長長文分析和學術寫作，回應較為謹慎和客觀。",
-      "Microsoft Copilot：整合在 Windows、Office 等微軟產品中，適合日常辦公和文檔處理。",
-      "圖像生成工具：DALL-E（OpenAI）、Midjourney、Stable Diffusion 能根據文字描述生成圖像，適合創意和設計。",
-      "選擇建議：初學者可從 ChatGPT 或 Gemini 開始，它們介面友善、功能全面；有特定需求再嘗試專門工具。",
+      "ChatGPT：用途全面，適合寫作、教學、翻譯、腦力激盪，通常是最易入門的選擇。",
+      "Google Gemini：和 Google 生態整合度高，做資料整理、多模態查詢時比較方便。",
+      "DeepSeek：在數學、推理、理科問題方面常有不錯表現，中文也相對自然。",
+      "Claude：較擅長長文閱讀、摘要和溫和清晰的表達，適合處理長內容。",
+      "Copilot：如果家長日常常用 Office 或 Windows，會較容易無縫接入工作流程。",
+      "圖像工具如 DALL-E、Midjourney、Stable Diffusion，適合做視覺創作和靈感發想。",
+      "對多數家長來說，先固定用一至兩個工具學熟，比不停換工具更有效。",
     ],
     keyPoints: [
-      { label: "最適合初學者", value: "ChatGPT / Gemini" },
-      { label: "數學/編程", value: "DeepSeek" },
-      { label: "長文分析", value: "Claude" },
-      { label: "圖像生成", value: "DALL-E / Midjourney" },
+      { label: "初學者首選", value: "ChatGPT / Gemini" },
+      { label: "長文整理", value: "Claude" },
+      { label: "理科推理", value: "DeepSeek" },
     ],
   },
   {
     icon: BookOpen,
     title: "如何操作 AI 工具",
-    description: "從註冊帳戶到實際對話，一步步教你使用 AI 工具進行學習和教學。",
-    color: "bg-teal-light",
-    iconColor: "text-primary",
+    description: "將操作步驟拆細，令家長知道從註冊、提問到追問，實際上每一步應該做什麼。",
     tag: "實用操作",
+    category: "實際使用",
+    accent: "bg-teal-light",
     details: [
-      "第一步：選擇平台並註冊帳戶。大部分工具（ChatGPT、Gemini、DeepSeek）都有免費版本，用電郵即可註冊。",
-      "第二步：熟悉介面。每個工具都有對話框，你輸入文字（提示詞），AI 會生成回應。可以連續對話，AI 會記住上下文。",
-      "第三步：撰寫有效的提示詞。不要只輸入「教我英文」，而是提供具體的角色、目標和背景資訊（RGC 框架）。",
-      "第四步：檢查和優化回應。AI 的第一次回應未必完美，你可以要求它「更簡單」、「加入例子」、「用另一種方式解釋」。",
-      "第五步：善用追問功能。像和老師對話一樣，可以不斷追問「為甚麼？」「可以舉個例子嗎？」「還有其他方法嗎？」",
-      "進階技巧：上傳圖片或文件讓 AI 分析、使用語音輸入、建立自訂指令（Custom Instructions）保存常用設定。",
+      "先選平台並註冊帳戶，大部分主流工具都有免費版本，夠家長初步熟習。",
+      "認識基本介面：一個輸入框、一段對話歷史、一個回應區，重點不是按鈕多，而是懂得對話。",
+      "第一次唔需要追求完美提示詞，先學會清楚講明：你想它做什麼、對誰說、要多長、多簡單。",
+      "收到第一個答案後，重點不是立即接受，而是學識追問、修改、縮窄範圍。",
+      "如果內容太深，可以要求『用 8 歲孩子聽得明的方式解釋』，或『舉生活例子』。",
+      "進階可用上傳文件、圖像、語音輸入等功能，但先掌握基本對話能力最重要。",
     ],
     keyPoints: [
-      { label: "起步", value: "註冊 → 輸入 → 對話" },
-      { label: "核心技能", value: "撰寫有效提示詞" },
-      { label: "優化方法", value: "追問 + 調整指令" },
-      { label: "進階功能", value: "上傳文件 / 語音輸入" },
-    ],
-  },
-  {
-    icon: AlertTriangle,
-    title: "使用 AI 的注意事項",
-    description: "了解 AI 的局限性和潛在風險，學會安全、負責任地使用 AI 工具。",
-    color: "bg-coral-light",
-    iconColor: "text-secondary",
-    tag: "安全須知",
-    details: [
-      "AI 幻覺（Hallucination）：AI 有時會自信地生成錯誤或虛構的資訊，看起來很真實但完全是編造的。務必核實重要資訊。",
-      "數據偏見：AI 從訓練數據學習，可能反映社會中的偏見（性別、種族、文化等），要教導孩子批判性思考。",
-      "隱私安全：不要在 AI 對話中輸入個人敏感資訊（如身份證號碼、地址、密碼、銀行資料）。",
-      "版權問題：AI 生成的內容可能涉及版權，用於學校作業時應標明是 AI 輔助生成，不要直接抄襲。",
-      "過度依賴：AI 是輔助工具而非替代品，孩子仍需發展獨立思考和解決問題的能力。",
-      "年齡限制：大部分 AI 工具要求用戶年滿 13 歲（部分為 18 歲），年幼孩子必須在家長陪同下使用。",
-      "內容過濾：部分 AI 可能生成不適合兒童的內容，家長應預先測試並設定適當的使用規則。",
-    ],
-    keyPoints: [
-      { label: "最常見問題", value: "AI 幻覺（虛構資訊）" },
-      { label: "隱私原則", value: "絕不輸入個人資料" },
-      { label: "學術誠信", value: "標明 AI 輔助" },
-      { label: "年齡要求", value: "13 歲以下需陪同" },
+      { label: "起步順序", value: "註冊 → 問問題 → 追問 → 修正" },
+      { label: "最有用技巧", value: "要求更簡單、更具體、更貼近孩子" },
+      { label: "家長任務", value: "示範如何檢查答案，而唔係示範如何偷快" },
     ],
   },
   {
     icon: Puzzle,
     title: "提示詞撰寫技巧",
-    description: "掌握與 AI 有效溝通的方法，學習多種提示詞框架，讓 AI 回應更精準。",
-    color: "bg-teal-light",
-    iconColor: "text-primary",
+    description: "提示詞唔需要寫到好複雜，重點是令 AI 明白角色、目標和背景。",
     tag: "核心技能",
+    category: "實際使用",
+    accent: "bg-bubble-green",
     details: [
-      "RGC 框架：Role（角色）+ Goal（目標）+ Context（背景）— 最基本也最實用的提示詞結構。告訴 AI 扮演甚麼角色、要達成甚麼目標、在甚麼背景下進行。",
-      "蘇格拉底式引導：設定 AI 不直接給答案，而是透過一連串提問引導孩子自行思考和推理。培養批判性思維。",
-      "分層提問法：記憶（事實）→ 理解（推理）→ 應用（實踐），由淺入深逐步引導學習。",
-      "逆向工程：上傳孩子的作品（畫作、作文、作業），讓 AI 從成果反向推測學習方向，特別適合視覺型學習者。",
-      "刻意犯錯法：讓 AI 故意在回答中犯錯，訓練孩子找出錯誤，培養仔細檢查和批判性思考的習慣。",
-      "情境模擬：設定虛擬場景（如餐廳點餐、超市購物），讓孩子在沉浸式環境中練習語言或數學技能。",
-      "黃金法則：提示詞越具體，AI 回應越好。加入數字指標、互動規則、語氣要求會大幅提升品質。",
+      "RGC 是最適合家長入手的框架：Role（角色）、Goal（目標）、Context（背景）。",
+      "例如與其問『教我英文』，不如問『你是一位小學英文老師，請用 8 歲孩子明白的方式教我 5 個關於天氣的英文詞語』。",
+      "如果想訓練孩子思考，不要要求 AI 直接給答案，可以要求它用提問方式引導。",
+      "有時候 AI 回應太空泛，加入限制條件會明顯改善，例如字數、年齡、情境、輸出格式。",
+      "家長可將常用提問句保存下來，建立自己的『家庭提示詞小抄』。",
     ],
     keyPoints: [
-      { label: "入門框架", value: "RGC（角色+目標+背景）" },
-      { label: "思維訓練", value: "蘇格拉底式 / 犯錯法" },
-      { label: "創意教學", value: "逆向工程 / 情境模擬" },
-      { label: "黃金法則", value: "越具體 = 越好的回應" },
+      { label: "入門框架", value: "RGC：角色 + 目標 + 背景" },
+      { label: "改善回應", value: "加年齡、情境、字數、格式要求" },
+      { label: "陪孩子學", value: "請 AI 引導，不要直接代答" },
+    ],
+  },
+  {
+    icon: AlertTriangle,
+    title: "使用 AI 的注意事項",
+    description: "呢一部分最適合家長先讀，因為它直接關係到安全、私隱、學術誠信和使用界線。",
+    tag: "安全須知",
+    category: "安全與陪伴",
+    accent: "bg-coral-light",
+    details: [
+      "AI 幻覺是最常見問題之一：它會用好有自信的語氣講錯內容，所以重要資訊一定要交叉核實。",
+      "不要輸入個人敏感資料，包括姓名、住址、學校、電話、密碼、身份證資料等。",
+      "如果孩子用 AI 做功課，要清楚界線：AI 可以幫忙理解、整理、練習，但不應代寫整份作業。",
+      "AI 可能帶有偏見，尤其涉及性別、文化、社會議題時，更需要教孩子保持批判思考。",
+      "部分平台有年齡限制，年幼孩子應由家長陪同使用，而不是單獨探索。",
+      "如果 AI 產生不適合兒童的內容，要將它視為媒體素養教學機會，而不是單純責備孩子。",
+    ],
+    keyPoints: [
+      { label: "最常見風險", value: "自信但錯誤的資訊" },
+      { label: "私隱原則", value: "不輸入真實個人資料" },
+      { label: "學習原則", value: "AI 可輔助，不可代做" },
     ],
   },
   {
     icon: Users,
     title: "家長與子女陪同指引",
-    description: "家長在 AI 教育中的角色定位、陪同方法和安全界線設定全攻略。",
-    color: "bg-coral-light",
-    iconColor: "text-secondary",
+    description: "家長最重要的角色不是監視，而是陪同設定方向、一起判斷內容值不值得信。",
     tag: "必讀指南",
+    category: "安全與陪伴",
+    accent: "bg-white",
     details: [
-      "為何需要陪同：年幼孩子容易過快接受 AI 答案而跳過思考過程，也可能接觸到不當內容。家長的角色是引導者和把關人。",
-      "陪同三步曲：① 一起設定提示詞 → ② 一起閱讀 AI 回應 → ③ 一起討論和反思。讓學習成為親子互動的機會。",
-      "提問引導法：不要告訴孩子答案，而是問「你覺得 AI 說的對嗎？」「為甚麼它這樣回答？」「你同意嗎？」培養獨立判斷力。",
-      "設定使用規則：每次使用時間（建議 20-30 分鐘）、可以問甚麼類型的問題、不可以分享甚麼資訊、完成後要做甚麼。",
-      "分齡建議：6-8 歲完全陪同、9-11 歲可在旁監督、12 歲以上可逐步獨立但定期檢查對話記錄。",
-      "正向示範：家長自己先學會使用 AI，在孩子面前展示正確的使用方式（檢查答案、質疑回應、保護隱私）。",
-      "學習記錄：可以和孩子一起將有趣的 AI 對話截圖保存，建立「我們的 AI 學習日記」，回顧成長過程。",
-      "緊急應對：如果 AI 生成了不當內容，保持冷靜，和孩子解釋「AI 有時會犯錯」，作為媒體素養教育的機會。",
+      "家長可用三步做陪同：一起設定提示詞、一起閱讀回應、一起討論值不值得相信。",
+      "當孩子讀完 AI 回應後，可以先問：『你覺得佢講得啱唔啱？』而唔係直接話對或錯。",
+      "6-8 歲適合完全陪同，9-11 歲適合在旁監督，12 歲以上可逐步獨立但定期回顧。",
+      "可事先定規則，例如每次用 20-30 分鐘、不能輸入個人資料、做完要一起總結一點學到的內容。",
+      "如果孩子過份依賴 AI，家長可調整任務設計，例如要求孩子先講自己的答案，再用 AI 對照。",
+      "最有效的陪伴不是全程糾正，而是示範『點樣問、點樣查、點樣想』。",
     ],
     keyPoints: [
-      { label: "核心角色", value: "引導者 + 把關人" },
-      { label: "陪同三步", value: "設定 → 閱讀 → 反思" },
-      { label: "6-8 歲", value: "完全陪同" },
-      { label: "12 歲+", value: "逐步獨立 + 定期檢查" },
+      { label: "家長定位", value: "引導者 + 把關人" },
+      { label: "陪同三步", value: "設定 → 閱讀 → 討論" },
+      { label: "重點能力", value: "判斷力比速度更重要" },
     ],
   },
 ];
 
-const KnowledgeCard = ({ item }: { item: KnowledgeItem }) => {
-  const [expanded, setExpanded] = useState(false);
-  const Icon = item.icon;
+const categoryStyles: Record<KnowledgeItem["category"], { panel: string; badge: string }> = {
+  入門認識: { panel: "bg-bubble-yellow", badge: "bg-bubble-pink" },
+  實際使用: { panel: "bg-teal-light", badge: "bg-bubble-green" },
+  安全與陪伴: { panel: "bg-coral-light", badge: "bg-white" },
+};
 
-  return (
-    <div className="rounded-2xl border border-border bg-card shadow-sm transition-shadow hover:shadow-md">
-      <button
-        className="w-full p-8 text-left"
-        onClick={() => setExpanded(!expanded)}
-      >
-        <div className="mb-5 flex items-center justify-between">
-          <div className="flex items-center gap-4">
-            <div className={`inline-flex rounded-xl p-3.5 ${item.color}`}>
-              <Icon className={`h-6 w-6 ${item.iconColor}`} />
+const groupedKnowledge = Object.entries(
+  knowledgeItems.reduce<Record<KnowledgeItem["category"], KnowledgeItem[]>>(
+    (acc, item) => {
+      acc[item.category].push(item);
+      return acc;
+    },
+    {
+      入門認識: [],
+      實際使用: [],
+      安全與陪伴: [],
+    },
+  ),
+) as [KnowledgeItem["category"], KnowledgeItem[]][];
+
+const quickStart = [
+  "第一次接觸 AI：先看「什麼是 AI」和「不同 AI 工具」",
+  "已開始使用工具：先看「如何操作」和「提示詞技巧」",
+  "擔心孩子安全：先看「注意事項」和「陪同指引」",
+];
+
+const AIKnowledgePage = () => (
+  <div className="py-10 lg:py-14">
+    <div className="container mx-auto px-4 md:px-6 lg:px-10">
+      <div className="rounded-[2.2rem] border-[4px] border-ink bg-white p-6 shadow-playful md:p-8 lg:p-10">
+        <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-bubble-yellow px-4 py-2 shadow-playful">
+              <Sparkles className="h-4 w-4 text-ink" />
+              <span className="font-display text-sm font-extrabold uppercase tracking-[0.15em] text-ink">AI Knowledge Guide</span>
             </div>
-            <span className="rounded-full bg-muted px-3 py-1 text-xs font-medium text-muted-foreground">
-              {item.tag}
-            </span>
+            <h1 className="mt-5 font-display text-4xl font-extrabold leading-tight text-ink md:text-5xl">AI 知識百科</h1>
+            <p className="mt-4 text-base font-bold leading-relaxed text-ink/75 md:text-lg">
+              將資訊重新整理成家長易睇版本。你可以先睇分類，再決定深入哪一個主題，手機同電腦都會較容易掃讀。
+            </p>
           </div>
-          {expanded ? (
-            <ChevronUp className="h-5 w-5 text-muted-foreground" />
-          ) : (
-            <ChevronDown className="h-5 w-5 text-muted-foreground" />
-          )}
-        </div>
-        <h3 className="mb-3 text-xl font-semibold text-foreground">{item.title}</h3>
-        <p className="text-sm leading-relaxed text-muted-foreground">{item.description}</p>
-      </button>
 
-      {expanded && (
-        <div className="border-t border-border px-8 pb-8 pt-6">
-          <ul className="space-y-4">
-            {item.details.map((d, i) => (
-              <li key={i} className="flex items-start gap-3 text-sm leading-relaxed text-foreground">
-                <span className="mt-2 h-2 w-2 flex-shrink-0 rounded-full bg-primary" />
-                <span>{d}</span>
-              </li>
-            ))}
-          </ul>
-          {item.keyPoints.length > 0 && (
-            <div className="mt-8 grid gap-3 sm:grid-cols-2">
-              {item.keyPoints.map((kp, i) => (
-                <div key={i} className="rounded-xl bg-muted p-4">
-                  <p className="text-xs font-medium text-muted-foreground">{kp.label}</p>
-                  <p className="mt-1 text-sm font-semibold text-foreground">{kp.value}</p>
+          <div className="grid gap-3 sm:grid-cols-3 lg:min-w-[360px]">
+            <div className="rounded-[1.4rem] border-[3px] border-ink bg-bubble-pink p-4 shadow-playful">
+              <p className="font-display text-2xl font-extrabold text-ink">3</p>
+              <p className="text-sm font-bold text-ink/70">主題分類</p>
+            </div>
+            <div className="rounded-[1.4rem] border-[3px] border-ink bg-teal-light p-4 shadow-playful">
+              <p className="font-display text-2xl font-extrabold text-ink">6</p>
+              <p className="text-sm font-bold text-ink/70">核心主題</p>
+            </div>
+            <div className="rounded-[1.4rem] border-[3px] border-ink bg-bubble-green p-4 shadow-playful">
+              <p className="font-display text-2xl font-extrabold text-ink">先總覽</p>
+              <p className="text-sm font-bold text-ink/70">再深入閱讀</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="mt-8 grid gap-6 xl:grid-cols-[0.9fr_2.1fr]">
+        <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
+          <div className="rounded-[2rem] border-[4px] border-ink bg-bubble-yellow p-6 shadow-playful">
+            <h2 className="font-display text-2xl font-extrabold text-ink">快速開始</h2>
+            <ul className="mt-4 space-y-3">
+              {quickStart.map((item) => (
+                <li key={item} className="rounded-[1.2rem] border-[3px] border-ink bg-white px-4 py-3 text-sm font-bold leading-relaxed text-ink shadow-playful">
+                  {item}
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="rounded-[2rem] border-[4px] border-ink bg-white p-6 shadow-playful">
+            <h2 className="font-display text-2xl font-extrabold text-ink">分類導覽</h2>
+            <div className="mt-4 space-y-3">
+              {groupedKnowledge.map(([category, items]) => (
+                <a
+                  key={category}
+                  href={`#${category}`}
+                  className="flex items-center justify-between rounded-[1.2rem] border-[3px] border-ink bg-background px-4 py-3 text-sm font-extrabold text-ink shadow-playful transition-transform hover:-translate-y-0.5"
+                >
+                  <span>{category}</span>
+                  <span className="rounded-full bg-white px-3 py-1 text-xs">{items.length} 篇</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </aside>
+
+        <div className="space-y-8">
+          {groupedKnowledge.map(([category, items]) => (
+            <section key={category} id={category} className="scroll-mt-24">
+              <div className={`rounded-[2rem] border-[4px] border-ink p-6 shadow-playful ${categoryStyles[category].panel}`}>
+                <div className="flex flex-col gap-3 md:flex-row md:items-center md:justify-between">
+                  <div>
+                    <div className={`inline-flex rounded-full border-[3px] border-ink px-4 py-1.5 text-xs font-extrabold uppercase tracking-[0.16em] text-ink shadow-playful ${categoryStyles[category].badge}`}>
+                      {category}
+                    </div>
+                    <h2 className="mt-4 font-display text-3xl font-extrabold text-ink md:text-4xl">{category}</h2>
+                  </div>
+                  <p className="max-w-xl text-sm font-bold leading-relaxed text-ink/75 md:text-base">
+                    {category === "入門認識" && "先建立清晰概念，知道 AI 是什麼、有哪些工具，以及它和一般搜尋有什麼不同。"}
+                    {category === "實際使用" && "進入操作與提問層面，讓家長可以真正上手，而不是只停留在知道工具名稱。"}
+                    {category === "安全與陪伴" && "將最重要的風險、私隱界線和家長陪同方法集中整理，方便實際應用。"}
+                  </p>
+                </div>
+              </div>
+
+              <div className="mt-5 grid gap-5">
+                {items.map((item) => {
+                  const Icon = item.icon;
+                  return (
+                    <div key={item.title} className="rounded-[2rem] border-[4px] border-ink bg-white p-5 shadow-playful md:p-6">
+                      <div className="flex flex-col gap-5">
+                        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
+                          <div className="flex gap-4">
+                            <div className={`flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-[1.2rem] border-[3px] border-ink ${item.accent}`}>
+                              <Icon className="h-7 w-7 text-ink" />
+                            </div>
+                            <div>
+                              <div className="inline-flex rounded-full border-[3px] border-ink bg-background px-3 py-1 text-xs font-extrabold uppercase tracking-[0.14em] text-ink">
+                                {item.tag}
+                              </div>
+                              <h3 className="mt-3 font-display text-2xl font-extrabold leading-tight text-ink">{item.title}</h3>
+                              <p className="mt-2 max-w-3xl text-sm font-bold leading-relaxed text-ink/75 md:text-base">{item.description}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="grid gap-3 md:grid-cols-3">
+                          {item.keyPoints.map((kp) => (
+                            <div key={kp.label} className="rounded-[1.3rem] border-[3px] border-ink bg-background p-4">
+                              <p className="text-xs font-extrabold uppercase tracking-[0.14em] text-ink/60">{kp.label}</p>
+                              <p className="mt-2 text-sm font-bold leading-relaxed text-ink">{kp.value}</p>
+                            </div>
+                          ))}
+                        </div>
+
+                        <Accordion type="single" collapsible className="rounded-[1.5rem] border-[3px] border-ink bg-background px-4">
+                          <AccordionItem value={item.title} className="border-none">
+                            <AccordionTrigger className="py-5 text-left font-display text-lg font-extrabold text-ink hover:no-underline">
+                              查看詳細內容
+                            </AccordionTrigger>
+                            <AccordionContent className="pb-5">
+                              <ul className="space-y-3">
+                                {item.details.map((detail) => (
+                                  <li key={detail} className="flex items-start gap-3 rounded-[1rem] bg-white px-4 py-3 text-sm font-bold leading-relaxed text-ink/80">
+                                    <span className="mt-1 inline-block h-2.5 w-2.5 flex-shrink-0 rounded-full bg-secondary" />
+                                    <span>{detail}</span>
+                                  </li>
+                                ))}
+                              </ul>
+                            </AccordionContent>
+                          </AccordionItem>
+                        </Accordion>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            </section>
+          ))}
+
+          <section className="rounded-[2rem] border-[4px] border-ink bg-coral-light p-6 shadow-playful md:p-8">
+            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-4 py-2 shadow-playful">
+              <ArrowRight className="h-4 w-4 text-ink" />
+              <span className="font-display text-sm font-extrabold uppercase tracking-[0.15em] text-ink">Suggested Reading Order</span>
+            </div>
+            <div className="mt-5 grid gap-4 md:grid-cols-3">
+              {[
+                "先看「什麼是 AI」建立基本理解。",
+                "再看「如何操作」和「提示詞技巧」學會真正使用。",
+                "最後回到「注意事項」和「陪同指引」建立家庭規則。",
+              ].map((item, index) => (
+                <div key={item} className="rounded-[1.3rem] border-[3px] border-ink bg-white p-4 shadow-playful">
+                  <p className="font-display text-xl font-extrabold text-ink">0{index + 1}</p>
+                  <p className="mt-2 text-sm font-bold leading-relaxed text-ink/75">{item}</p>
                 </div>
               ))}
             </div>
-          )}
+          </section>
         </div>
-      )}
-    </div>
-  );
-};
-
-const AIKnowledgePage = () => (
-  <div className="py-12 lg:py-16">
-    <div className="container mx-auto px-6 lg:px-12">
-      <div className="mb-14">
-        <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">🧠 AI 知識百科</h1>
-        <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-          由淺入深，全面認識人工智能。點擊每個卡片展開詳細內容，按照自己的節奏學習。
-        </p>
-      </div>
-
-      <div className="space-y-6">
-        {knowledgeItems.map((item) => (
-          <KnowledgeCard key={item.title} item={item} />
-        ))}
       </div>
     </div>
   </div>

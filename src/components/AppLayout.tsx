@@ -5,12 +5,15 @@ import { Outlet } from "react-router-dom";
 const AppLayout = () => {
   return (
     <SidebarProvider>
-      <div className="min-h-screen flex w-full">
+      <div className="flex min-h-screen w-full">
         <AppSidebar />
-        <div className="flex-1 flex flex-col min-w-0">
-          <header className="sticky top-0 z-40 h-14 flex items-center border-b border-border bg-card/80 backdrop-blur-md px-4">
-            <SidebarTrigger className="mr-4" />
-            <span className="text-sm font-medium text-muted-foreground">AI 親子學堂</span>
+        <div className="flex min-w-0 flex-1 flex-col">
+          <header className="sticky top-0 z-40 flex h-16 items-center border-b-[3px] border-ink bg-background/85 px-4 backdrop-blur-md">
+            <SidebarTrigger className="mr-4 rounded-full border-[3px] border-ink bg-bubble-yellow p-2 text-ink shadow-playful transition-transform hover:-translate-y-0.5" />
+            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-4 py-1.5 shadow-playful">
+              <span className="text-xl">🌈</span>
+              <span className="font-display text-base font-extrabold tracking-wide text-ink">家長 AI 學習指南</span>
+            </div>
           </header>
           <main className="flex-1">
             <Outlet />
