@@ -5,7 +5,7 @@ const CertificatePreviewPage = () => {
   const [isOpen, setIsOpen] = useState(true);
 
   return (
-    <div className="min-h-[70vh] bg-[radial-gradient(circle_at_top,_rgba(255,216,77,0.28),_transparent_45%),linear-gradient(180deg,_#fff8ef_0%,_#ffe7cf_100%)]">
+    <div className="min-h-[70vh] bg-[radial-gradient(circle_at_12%_14%,rgba(255,186,207,0.4),transparent_32%),radial-gradient(circle_at_88%_18%,rgba(153,236,244,0.42),transparent_30%),linear-gradient(180deg,#f7feff_0%,#eefdff_100%)]">
       {isOpen ? (
         <CertificateModal
           name="陳小美"
@@ -15,11 +15,11 @@ const CertificatePreviewPage = () => {
         />
       ) : (
         <div className="flex min-h-[70vh] items-center justify-center px-6 text-center">
-          <div className="rounded-[28px] border-4 border-slate-900 bg-white px-8 py-10 shadow-[0_12px_0_0_rgba(27,34,64,1)]">
-            <p className="mb-4 text-xl font-black text-slate-900">證書預覽已關閉</p>
+          <div className="rounded-[28px] border border-soft bg-white px-8 py-10 shadow-card">
+            <p className="mb-4 text-xl font-black text-ink">證書預覽已關閉</p>
             <button
               onClick={() => setIsOpen(true)}
-              className="rounded-full border-4 border-slate-900 bg-[#ffd84d] px-6 py-3 text-sm font-black text-slate-900 shadow-[0_6px_0_0_rgba(27,34,64,1)]"
+              className="rounded-full border border-soft bg-soft-sky px-6 py-3 text-sm font-extrabold text-ink shadow-card transition-colors hover:bg-soft-mint"
             >
               重新打開證書
             </button>

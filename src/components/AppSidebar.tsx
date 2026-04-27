@@ -80,7 +80,7 @@ export function AppSidebar() {
       <SidebarFooter className="border-t-[3px] border-ink p-4">
         {!collapsed && (
           <div className="rounded-[1.5rem] border-[3px] border-ink bg-white p-4 shadow-playful">
-            <p className="font-display text-base font-extrabold text-ink">家長陪學重點</p>
+            <p className="font-display text-base font-extrabold text-ink">家長陪伴學習重點</p>
             <p className="mt-1 text-sm font-semibold leading-relaxed text-ink/70">
               先學 AI，再更有信心陪孩子使用
             </p>

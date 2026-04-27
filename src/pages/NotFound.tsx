@@ -1,8 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const NotFound = () => {
   const location = useLocation();
+  const { language } = useLanguage();
 
   useEffect(() => {
     console.error("404 Error: User attempted to access non-existent route:", location.pathname);
@@ -12,9 +14,11 @@ const NotFound = () => {
     <div className="flex min-h-screen items-center justify-center bg-muted">
       <div className="text-center">
         <h1 className="mb-4 text-4xl font-bold">404</h1>
-        <p className="mb-4 text-xl text-muted-foreground">找不到你要前往的頁面。</p>
+        <p className="mb-4 text-xl text-muted-foreground">
+          {language === "zh" ? "找不到你要前往的頁面。" : "The page you requested could not be found."}
+        </p>
         <Link to="/" className="text-primary underline hover:text-primary/90">
-          返回首頁
+          {language === "zh" ? "返回首頁" : "Back to Home"}
         </Link>
       </div>
     </div>

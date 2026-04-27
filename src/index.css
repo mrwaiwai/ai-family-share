@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Nunito:wght@400;600;700;800&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+TC:wght@400;500;700;800&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -6,60 +6,55 @@
 
 @layer base {
   :root {
-    --background: 46 100% 96%;
-    --foreground: 223 31% 12%;
+    --background: 190 100% 97%;
+    --foreground: 198 34% 34%;
 
     --card: 0 0% 100%;
-    --card-foreground: 223 31% 12%;
+    --card-foreground: 198 34% 34%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 223 31% 12%;
+    --popover-foreground: 198 34% 34%;
 
-    --primary: 47 100% 57%;
-    --primary-foreground: 223 31% 12%;
+    --primary: 347 100% 78%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 12 100% 64%;
-    --secondary-foreground: 223 31% 12%;
+    --secondary: 197 49% 63%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 42 86% 91%;
-    --muted-foreground: 223 16% 37%;
+    --muted: 194 54% 94%;
+    --muted-foreground: 198 18% 48%;
 
-    --accent: 186 76% 57%;
-    --accent-foreground: 223 31% 12%;
+    --accent: 48 100% 85%;
+    --accent-foreground: 198 34% 34%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
-    --border: 223 31% 12%;
-    --input: 44 100% 92%;
-    --ring: 12 100% 64%;
+    --border: 193 42% 86%;
+    --input: 0 0% 100%;
+    --ring: 197 49% 63%;
 
-    --radius: 1.6rem;
+    --radius: 1.5rem;
 
-    --sidebar-background: 23 100% 88%;
-    --sidebar-foreground: 223 31% 12%;
-    --sidebar-primary: 47 100% 57%;
-    --sidebar-primary-foreground: 223 31% 12%;
+    --sidebar-background: 194 78% 95%;
+    --sidebar-foreground: 198 34% 34%;
+    --sidebar-primary: 347 100% 78%;
+    --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 100%;
-    --sidebar-accent-foreground: 223 31% 12%;
-    --sidebar-border: 223 31% 12%;
-    --sidebar-ring: 12 100% 64%;
+    --sidebar-accent-foreground: 198 34% 34%;
+    --sidebar-border: 193 42% 86%;
+    --sidebar-ring: 197 49% 63%;
 
-    --warm-bg: 46 100% 96%;
-    --sunburst-from: 13 100% 67%;
-    --sunburst-via: 28 100% 72%;
-    --sunburst-to: 50 100% 77%;
-    --bubble-pink: 335 100% 84%;
-    --bubble-orange: 21 100% 77%;
-    --bubble-green: 116 47% 69%;
-    --bubble-blue: 186 76% 57%;
-    --bubble-cream: 48 100% 93%;
-    --bubble-yellow: 47 100% 57%;
-    --shadow-playful: 0 8px 0 0 hsl(var(--foreground));
-    --gradient-hero: radial-gradient(circle at top, hsl(var(--sunburst-to)), hsl(var(--sunburst-via)) 55%, hsl(var(--sunburst-from)));
-    --gradient-card-warm: linear-gradient(135deg, hsl(var(--bubble-pink)), hsl(var(--bubble-orange)));
-    --gradient-card-cool: linear-gradient(135deg, hsl(var(--bubble-blue)), hsl(176 69% 70%));
-    --gradient-card-green: linear-gradient(135deg, hsl(var(--bubble-green)), hsl(88 62% 74%));
+    --soft-sky: 192 88% 88%;
+    --soft-sea: 195 70% 72%;
+    --soft-pink: 349 100% 86%;
+    --soft-peach: 15 100% 89%;
+    --soft-mint: 145 57% 89%;
+    --soft-yellow: 48 100% 87%;
+    --hero-gradient: linear-gradient(180deg, hsl(190 100% 92%) 0%, hsl(191 81% 92%) 42%, hsl(196 81% 95%) 100%);
+    --panel-gradient: linear-gradient(180deg, hsl(0 0% 100% / 0.94), hsl(190 60% 96% / 0.96));
+    --shadow-soft: 0 24px 60px -26px rgba(110, 170, 185, 0.42);
+    --shadow-card: 0 18px 35px -24px rgba(122, 179, 194, 0.5);
   }
 
   .dark {
@@ -111,12 +106,12 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Nunito", "Noto Sans TC", sans-serif;
+    font-family: "Noto Sans TC", sans-serif;
     line-height: 1.7;
     background-image:
-      radial-gradient(circle at 10% 20%, hsl(var(--bubble-pink) / 0.35), transparent 18%),
-      radial-gradient(circle at 90% 15%, hsl(var(--bubble-blue) / 0.28), transparent 16%),
-      radial-gradient(circle at 85% 80%, hsl(var(--bubble-green) / 0.22), transparent 18%);
+      radial-gradient(circle at 10% 14%, hsl(var(--soft-pink) / 0.32), transparent 20%),
+      radial-gradient(circle at 88% 12%, hsl(var(--soft-sky) / 0.35), transparent 18%),
+      linear-gradient(180deg, hsl(190 100% 97%) 0%, hsl(194 70% 95%) 100%);
     background-attachment: fixed;
   }
 
@@ -125,86 +120,108 @@
   h3,
   h4,
   .font-display {
-    font-family: "Baloo 2", "Nunito", "Noto Sans TC", sans-serif;
+    font-family: "M PLUS Rounded 1c", "Noto Sans TC", sans-serif;
+  }
+
+  html:lang(zh-Hant) body {
+    line-height: 1.82;
+    letter-spacing: 0.01em;
+  }
+
+  html:lang(en) body {
+    line-height: 1.74;
+    letter-spacing: 0.006em;
+    word-spacing: 0.01em;
+  }
+
+  .reading-friendly :where(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.28;
+    letter-spacing: 0.01em;
+  }
+
+  .reading-friendly :where(p, li, dd, blockquote) {
+    line-height: 1.82;
+    text-wrap: pretty;
+  }
+
+  .reading-friendly :where(ul, ol) {
+    padding-inline-start: 1.1rem;
+  }
+
+  html:lang(en) .reading-friendly :where(h1, h2, h3, h4, h5, h6) {
+    line-height: 1.23;
+    letter-spacing: 0.006em;
+  }
+
+  html:lang(en) .reading-friendly :where(p, li, dd, blockquote) {
+    line-height: 1.72;
+    letter-spacing: 0.004em;
   }
 }
 
 @layer utilities {
-  .text-gradient-primary {
-    background: var(--gradient-hero);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+  .bg-hero-soft {
+    background: var(--hero-gradient);
   }
 
-  .bg-warm {
-    background-color: hsl(var(--warm-bg));
+  .bg-panel-soft {
+    background: var(--panel-gradient);
   }
 
-  .bg-sunburst {
-    background: var(--gradient-hero);
+  .bg-soft-sky {
+    background-color: hsl(var(--soft-sky));
   }
 
-  .bg-teal-light {
-    background-color: hsl(var(--bubble-blue));
+  .bg-soft-sea {
+    background-color: hsl(var(--soft-sea));
   }
 
-  .bg-coral-light {
-    background-color: hsl(var(--bubble-orange));
+  .bg-soft-pink {
+    background-color: hsl(var(--soft-pink));
   }
 
-  .bg-bubble-pink {
-    background-color: hsl(var(--bubble-pink));
+  .bg-soft-peach {
+    background-color: hsl(var(--soft-peach));
   }
 
-  .bg-bubble-green {
-    background-color: hsl(var(--bubble-green));
+  .bg-soft-mint {
+    background-color: hsl(var(--soft-mint));
   }
 
-  .bg-bubble-yellow {
-    background-color: hsl(var(--bubble-yellow));
-  }
-
-  .shadow-playful {
-    box-shadow: var(--shadow-playful);
-  }
-
-  .border-ink {
-    border-color: hsl(var(--foreground));
+  .bg-soft-yellow {
+    background-color: hsl(var(--soft-yellow));
   }
 
   .text-ink {
     color: hsl(var(--foreground));
   }
 
-  .card-doodle {
-    position: relative;
-    overflow: hidden;
+  .text-soft-muted {
+    color: hsl(var(--muted-foreground));
   }
 
-  .card-doodle::after {
-    content: "";
-    position: absolute;
-    right: -16px;
-    bottom: -18px;
-    width: 96px;
-    height: 96px;
-    border-radius: 999px;
-    background: hsl(var(--bubble-cream) / 0.55);
-    z-index: 0;
+  .border-soft {
+    border-color: hsl(var(--border));
   }
 
-  .doodle-ring {
-    position: relative;
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
   }
 
-  .doodle-ring::before {
-    content: "";
-    position: absolute;
-    inset: -8px;
-    border: 2px dashed hsl(var(--foreground) / 0.45);
-    border-radius: inherit;
-    pointer-events: none;
+  .shadow-card {
+    box-shadow: var(--shadow-card);
+  }
+
+  .soft-pill {
+    @apply rounded-full border border-soft bg-white/90 px-4 py-2 shadow-card;
+  }
+
+  .soft-card {
+    @apply rounded-[28px] border border-soft bg-white shadow-card backdrop-blur-sm;
+  }
+
+  .soft-section-title {
+    @apply font-display text-[2rem] font-extrabold tracking-tight text-ink md:text-[2.35rem];
   }
 }
 
@@ -228,15 +245,6 @@
   }
 }
 
-@keyframes wiggle {
-  0%, 100% {
-    transform: rotate(-3deg);
-  }
-  50% {
-    transform: rotate(3deg);
-  }
-}
-
 @keyframes pulse-pop {
   0%, 100% {
     transform: scale(1);
@@ -252,10 +260,6 @@
 
 .animate-float-gentle {
   animation: float-gentle 4.5s ease-in-out infinite;
-}
-
-.animate-wiggle-slow {
-  animation: wiggle 5s ease-in-out infinite;
 }
 
 .animate-pulse-pop {

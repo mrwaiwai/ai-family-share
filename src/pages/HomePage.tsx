@@ -1,264 +1,306 @@
-import { ArrowRight, BookOpen, PenLine, ClipboardCheck, Users, Lightbulb, Sparkles, Heart, Stars, SmilePlus } from "lucide-react";
+import {
+  ArrowRight,
+  BookOpen,
+  BrainCircuit,
+  ClipboardCheck,
+  Gamepad2,
+  Lightbulb,
+  PenLine,
+  ShieldCheck,
+  Sparkles,
+  Users,
+} from "lucide-react";
 import { Link } from "react-router-dom";
+import heroReference from "@/assets/ise-soft-hero-family.png";
+import { useLanguage } from "@/contexts/LanguageContext";
 
-const sections = [
-  {
-    icon: BookOpen,
-    title: "AI 知識百科",
-    description: "了解什麼是 AI、不同工具的比較、操作方法和注意事項。",
-    href: "/ai-knowledge",
-    color: "bg-coral-light",
-    badge: "AI 入門",
+const pageCopy = {
+  zh: {
+    badge: "家長學習・陪伴學習支援",
+    heroTitle: "家長輕鬆掌握AI工具和親子陪伴學習方法",
+    heroDesc:
+      "這個網站專為家長而設，整理了 AI 基礎知識、提示詞技巧、實用練習、測驗和陪伴學習指南，幫你先學會，再更有信心陪孩子一起使用 AI。",
+    startNow: "立即開始",
+    takeQuiz: "去做小測驗",
+    sectionTitle: "網站學習單元",
   },
-  {
-    icon: Lightbulb,
-    title: "提示詞技巧",
-    description: "掌握 RGC 框架、蘇格拉底式引導等實用提示詞模板。",
-    href: "/prompt-skills",
-    color: "bg-teal-light",
-    badge: "表達力",
+  en: {
+    badge: "Parent Learning Support",
+    heroTitle: "Parents Can Easily Master AI Tools and Family Co-Learning Methods",
+    heroDesc:
+      "This website is designed for parents, covering AI basics, prompt skills, practical exercises, quizzes, and family guidance so you can learn first and guide your child with confidence.",
+    startNow: "Get Started",
+    takeQuiz: "Take Quiz",
+    sectionTitle: "Learning Modules",
   },
-  {
-    icon: PenLine,
-    title: "提示詞練習",
-    description: "透過真實場景動手練習撰寫提示詞，即時獲得改善建議。",
-    href: "/practice",
-    color: "bg-bubble-pink",
-    badge: "互動玩學",
-  },
-  {
-    icon: ClipboardCheck,
-    title: "AI 知識測驗",
-    description: "完成 15 題測驗，達 60% 以上即可獲發電子證書。",
-    href: "/quiz",
-    color: "bg-bubble-green",
-    badge: "挑戰模式",
-  },
-  {
-    icon: Users,
-    title: "家長指南",
-    description: "安全陪伴孩子使用 AI 的全面指引和分齡建議。",
-    href: "/parent-guide",
-    color: "bg-bubble-yellow",
-    badge: "親子共學",
-  },
-];
+};
 
-const HomePage = () => (
-  <div className="overflow-hidden">
-    <section className="relative overflow-hidden px-4 pb-16 pt-8 md:px-6 lg:px-10">
-      <div className="pointer-events-none absolute left-6 top-14 animate-float-gentle text-secondary">
-        <Stars className="h-9 w-9" />
-      </div>
-      <div className="pointer-events-none absolute right-10 top-24 animate-wiggle-slow text-accent">
-        <Heart className="h-10 w-10 fill-current" />
-      </div>
-      <div className="pointer-events-none absolute bottom-12 left-8 animate-pulse-pop text-primary">
-        <Sparkles className="h-10 w-10" />
-      </div>
+const HomePage = () => {
+  const { language } = useLanguage();
+  const copy = pageCopy[language];
 
-      <div className="container mx-auto">
-        <div className="relative rounded-[2.5rem] border-[4px] border-ink bg-sunburst px-6 py-10 shadow-playful md:px-10 md:py-14 lg:px-14">
-          <div
-            className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage:
-                "repeating-conic-gradient(from 270deg at 50% 55%, rgba(255,255,255,0.35) 0deg 10deg, transparent 10deg 20deg)",
-            }}
-          />
+  const overviewCards = [
+    {
+      title: "5+",
+      subtitle: language === "zh" ? "家長學習主題" : "Parent Learning Topics",
+      icon: BrainCircuit,
+      color: "bg-[linear-gradient(135deg,rgba(255,248,213,0.95),rgba(255,241,196,0.72))]",
+    },
+    {
+      title: language === "zh" ? "15 題" : "15 Qs",
+      subtitle: language === "zh" ? "重點測驗整理" : "Key Quiz Questions",
+      icon: ClipboardCheck,
+      color: "bg-[linear-gradient(135deg,rgba(255,235,242,0.95),rgba(255,225,235,0.75))]",
+    },
+    {
+      title: language === "zh" ? "一步步" : "Step by Step",
+      subtitle: language === "zh" ? "由入門到陪伴學習" : "From Basics to Co-Learning",
+      icon: ShieldCheck,
+      color: "bg-[linear-gradient(135deg,rgba(228,252,248,0.98),rgba(219,245,239,0.82))]",
+    },
+  ];
 
-          <div className="relative z-10 mb-8 flex flex-wrap items-center gap-3">
-            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-4 py-2 shadow-playful">
-              <SmilePlus className="h-5 w-5 text-secondary" />
-              <span className="font-display text-base font-extrabold uppercase tracking-[0.14em] text-ink">Parent AI Learning Hub</span>
-            </div>
-            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-bubble-yellow px-4 py-2 shadow-playful">
-              <span className="text-lg">👨‍👩‍👧‍👦</span>
-              <span className="text-base font-extrabold text-ink">家長學習 + 陪學支援</span>
-            </div>
-          </div>
+  const featurePanels = [
+    {
+      title: language === "zh" ? "家長學習內容" : "Parent Learning Content",
+      text:
+        language === "zh"
+          ? "網站內容以家長角度整理，先幫你理解 AI 是什麼、有哪些常見工具、怎樣提問更有效，再延伸到如何安全地陪孩子一起學習和使用 AI。"
+          : "Content is organized from a parent's perspective, helping you understand AI basics, common tools, and effective prompting before guiding safe co-learning with your child.",
+      icon: BookOpen,
+      href: "/ai-knowledge",
+      chips: language === "zh" ? ["AI 知識", "提示詞技巧", "家長指南"] : ["AI Knowledge", "Prompt Skills", "Parent Guide"],
+      tone: "bg-[linear-gradient(180deg,rgba(236,249,252,0.98),rgba(248,252,255,0.96))]",
+    },
+    {
+      title: language === "zh" ? "實戰練習" : "Practical Practice",
+      text:
+        language === "zh"
+          ? "用真實情境練習提問，幫家長更快掌握如何向 AI 清楚表達需求。"
+          : "Practice with real scenarios to quickly learn how to express needs clearly to AI.",
+      icon: PenLine,
+      href: "/practice",
+      chips: language === "zh" ? ["情境練習", "即時回饋"] : ["Scenario Practice", "Instant Feedback"],
+      tone: "bg-[linear-gradient(135deg,rgba(255,235,241,0.98),rgba(255,244,247,0.95))]",
+    },
+    {
+      title: language === "zh" ? "陪伴學習指南" : "Co-Learning Guide",
+      text:
+        language === "zh"
+          ? "了解如何與孩子安全、有效地使用 AI，而不只是了解操作功能。"
+          : "Learn how to use AI safely and effectively with your child, beyond just button-level operation.",
+      icon: ShieldCheck,
+      href: "/parent-guide",
+      chips: language === "zh" ? ["安全", "界線", "陪伴"] : ["Safety", "Boundaries", "Support"],
+      tone: "bg-[linear-gradient(135deg,rgba(232,250,241,0.98),rgba(241,253,247,0.96))]",
+    },
+  ];
 
-          <div className="relative z-10">
-            <div className="text-center lg:text-left">
-              <h1 className="font-display text-4xl font-extrabold leading-[0.95] text-ink md:text-6xl lg:text-7xl">
-                幫家長輕鬆掌握
-                <br />
-                AI 工具同
-                <br />
-                <span className="text-white [text-shadow:3px_3px_0_hsl(var(--foreground))]">親子陪學方法</span>
-              </h1>
-              <p className="mx-auto mt-6 max-w-2xl text-lg font-bold leading-relaxed text-ink/80 lg:mx-0 lg:text-xl">
-                呢個網站專為家長而設，整理咗 AI 基礎知識、提示詞技巧、實用練習、測驗同陪學指南，幫你先學識，再更有信心陪孩子一齊使用 AI。
-              </p>
+  const modules = [
+    {
+      title: language === "zh" ? "AI 知識" : "AI Knowledge",
+      description:
+        language === "zh"
+          ? "了解 AI 概念、工具差異與家長最常會遇到的基礎問題。"
+          : "Understand AI fundamentals, tool differences, and common parent questions.",
+      href: "/ai-knowledge",
+      icon: BrainCircuit,
+      color: "bg-soft-pink",
+    },
+    {
+      title: language === "zh" ? "提示詞技巧" : "Prompt Skills",
+      description:
+        language === "zh"
+          ? "學習如何清楚提問，讓 AI 更有效率地支援你和孩子。"
+          : "Learn to ask clear questions so AI can better support you and your child.",
+      href: "/prompt-skills",
+      icon: Lightbulb,
+      color: "bg-soft-sky",
+    },
+    {
+      title: language === "zh" ? "提示詞練習" : "Prompt Practice",
+      description:
+        language === "zh"
+          ? "透過實戰場景練習提示詞，將學到的方法真正運用出來。"
+          : "Practice prompts with real scenarios and apply what you learn immediately.",
+      href: "/practice",
+      icon: PenLine,
+      color: "bg-soft-peach",
+    },
+    {
+      title: language === "zh" ? "AI 親子應用" : "Family AI Use Cases",
+      description:
+        language === "zh"
+          ? "從日常陪伴學習到創作互動，探索 AI 可以如何融入親子學習。"
+          : "Explore how AI can support family learning, from daily guidance to creative activities.",
+      href: "/quiz",
+      icon: Gamepad2,
+      color: "bg-soft-yellow",
+    },
+    {
+      title: language === "zh" ? "家長指南" : "Parent Guide",
+      description:
+        language === "zh"
+          ? "整理陪孩子使用 AI 時需要留意的界線、風險和實際做法。"
+          : "Review boundaries, risks, and practical methods when using AI with children.",
+      href: "/parent-guide",
+      icon: Users,
+      color: "bg-soft-mint",
+    },
+  ];
+  const primaryFeature = featurePanels[0];
+  const PrimaryFeatureIcon = primaryFeature.icon;
 
-              <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row lg:justify-start">
-                <Link
-                  to="/ai-knowledge"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-ink bg-bubble-yellow px-8 py-4 text-base font-extrabold text-ink shadow-playful transition-all hover:-translate-y-1"
-                >
-                  立即開始
-                  <ArrowRight className="h-5 w-5" />
-                </Link>
-                <Link
-                  to="/quiz"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border-[3px] border-ink bg-white px-8 py-4 text-base font-extrabold text-ink shadow-playful transition-all hover:-translate-y-1"
-                >
-                  去做小測驗
-                  <ClipboardCheck className="h-5 w-5" />
-                </Link>
+  return (
+  <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.88),rgba(241,250,252,0.96))] p-5 md:p-7">
+    <div className="space-y-8">
+      <section className="overflow-hidden rounded-[34px] border border-soft bg-[#d9f4fb] shadow-card">
+        <div className="grid gap-0 lg:grid-cols-[1fr_0.96fr]">
+          <div className="px-6 py-7 md:px-10 md:py-9">
+            <div className="flex flex-wrap gap-3">
+              <div className="rounded-full bg-secondary px-4 py-2 text-sm font-bold text-white shadow-card">
+                Parent AI Learning Hub
               </div>
-
-              <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                <div className="rounded-[1.8rem] border-[3px] border-ink bg-white/90 p-4 text-left shadow-playful">
-                  <p className="font-display text-2xl font-extrabold text-ink">5+</p>
-                  <p className="text-base font-bold text-ink/70">家長學習主題</p>
-                </div>
-                <div className="rounded-[1.8rem] border-[3px] border-ink bg-bubble-pink p-4 text-left shadow-playful">
-                  <p className="font-display text-2xl font-extrabold text-ink">15 題</p>
-                  <p className="text-base font-bold text-ink/70">重點測驗整理</p>
-                </div>
-                <div className="rounded-[1.8rem] border-[3px] border-ink bg-teal-light p-4 text-left shadow-playful">
-                  <p className="font-display text-2xl font-extrabold text-ink">一步步</p>
-                  <p className="text-base font-bold text-ink/70">由入門到陪學</p>
-                </div>
-              </div>
-
-              <div className="mt-8 grid gap-5 lg:grid-cols-[1.15fr_0.85fr]">
-                <div className="rounded-[2rem] border-[4px] border-ink bg-white/90 p-6 shadow-playful">
-                  <div className="mb-4 inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-bubble-pink px-4 py-2 shadow-playful">
-                    <span className="text-xl">🗂️</span>
-                    <span className="font-display text-base font-extrabold uppercase tracking-[0.13em] text-ink">家長學習內容</span>
-                  </div>
-                  <p className="text-lg font-bold leading-relaxed text-ink/80">
-                    網站內容以家長角度整理，先幫你理解 AI 是什麼、有哪些常見工具、怎樣提問更有效，再延伸到如何安全地陪孩子一起學習和使用 AI。
-                  </p>
-                  <div className="mt-5 flex flex-wrap gap-3">
-                    <div className="rounded-full border-[3px] border-ink bg-bubble-yellow px-4 py-2 text-base font-extrabold text-ink shadow-playful">🧠 AI 知識</div>
-                    <div className="rounded-full border-[3px] border-ink bg-teal-light px-4 py-2 text-base font-extrabold text-ink shadow-playful">💬 提示詞技巧</div>
-                    <div className="rounded-full border-[3px] border-ink bg-bubble-green px-4 py-2 text-base font-extrabold text-ink shadow-playful">👨‍👩‍👧‍👦 家長指南</div>
-                  </div>
-                </div>
-
-                <div className="grid gap-4">
-                  <div className="rounded-[1.8rem] border-[4px] border-ink bg-bubble-pink p-5 shadow-playful">
-                    <p className="text-3xl">✍️</p>
-                    <p className="mt-3 font-display text-2xl font-extrabold text-ink">實戰練習</p>
-                    <p className="mt-2 text-base font-bold leading-relaxed text-ink/75">用真實情境練習提問，幫家長更快掌握如何向 AI 清楚表達需求。</p>
-                  </div>
-                  <div className="rounded-[1.8rem] border-[4px] border-ink bg-white p-5 shadow-playful">
-                    <p className="text-3xl">✅</p>
-                    <p className="mt-3 font-display text-2xl font-extrabold text-ink">陪學指南</p>
-                    <p className="mt-2 text-base font-bold leading-relaxed text-ink/75">了解如何陪孩子安全、有效地使用 AI，而唔係只係識按功能。</p>
-                  </div>
-                </div>
+              <div className="rounded-full bg-soft-pink px-4 py-2 text-sm font-bold text-primary shadow-card">
+                {copy.badge}
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section className="px-4 py-10 md:px-6 lg:px-10">
-      <div className="container mx-auto">
-        <div className="mb-10 text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-5 py-2 shadow-playful">
-            <span className="text-xl">📚</span>
-            <span className="font-display text-base font-extrabold uppercase tracking-[0.15em] text-ink">網站學習單元</span>
-          </div>
-          <h2 className="mt-5 font-display text-4xl font-extrabold text-ink md:text-5xl">由家長最需要的內容開始學</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-base font-bold text-ink/70 md:text-lg">
-            每個單元都圍繞家長常見需要設計，方便你由認識 AI、學習操作，到實際陪孩子應用。
-          </p>
-        </div>
-
-        <div className="grid gap-8 sm:grid-cols-2 xl:grid-cols-3">
-          {sections.map((s) => (
-            <Link
-              key={s.title}
-              to={s.href}
-              className={`card-doodle group relative rounded-[2rem] border-[4px] border-ink p-8 shadow-playful transition-all duration-300 hover:-translate-y-2 ${s.color}`}
+            <h1
+              className={`mt-5 font-display font-extrabold text-secondary ${
+                language === "en"
+                  ? "max-w-[12.5ch] text-[clamp(2.05rem,4.6vw,3.75rem)] leading-[1.14] tracking-[0.005em]"
+                  : "max-w-[13.5ch] text-[clamp(2.1rem,4.9vw,3.65rem)] leading-[1.2] tracking-[0.01em]"
+              }`}
             >
-              <div className="relative z-10">
-                <div className="mb-5 inline-flex rounded-full border-[3px] border-ink bg-white px-4 py-2 text-sm font-extrabold uppercase tracking-[0.14em] text-ink">
-                  {s.badge}
+              {copy.heroTitle}
+            </h1>
+
+            <p className="mt-5 max-w-2xl text-[1.03rem] leading-8 text-soft-muted md:text-lg md:leading-8">
+              {copy.heroDesc}
+            </p>
+
+            <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+              <Link
+                to="/ai-knowledge"
+                className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-8 py-4 text-lg font-bold text-primary-foreground shadow-card transition-transform hover:-translate-y-0.5"
+              >
+                {copy.startNow}
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                to="/quiz"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-soft bg-white px-8 py-4 text-lg font-bold text-secondary shadow-card transition-transform hover:-translate-y-0.5"
+              >
+                {copy.takeQuiz}
+                <ClipboardCheck className="h-5 w-5" />
+              </Link>
+            </div>
+          </div>
+
+          <div className="relative min-h-[390px] overflow-hidden bg-[linear-gradient(180deg,#d9f4fb,#d9f4fb)] md:min-h-[420px]">
+            <div className="absolute inset-x-5 bottom-4 top-5 overflow-hidden rounded-[32px] md:inset-x-7 md:bottom-5 md:top-6">
+              <img
+                src={heroReference}
+                alt={language === "zh" ? "一家三口一起閱讀的柔和插畫" : "A soft illustration of a family reading together"}
+                className="h-full w-full scale-[1.08] object-contain object-[center_57%] md:scale-[1.12] lg:scale-[1.14]"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="grid gap-4 md:grid-cols-3">
+        {overviewCards.map((card) => (
+          <div key={card.subtitle} className={`rounded-[24px] border border-soft p-6 shadow-card ${card.color}`}>
+            <div className="flex items-start justify-between gap-4">
+              <div>
+                <p className="font-display text-[2.15rem] font-extrabold leading-none text-secondary">{card.title}</p>
+                <p className="mt-3 text-xl font-bold text-ink">{card.subtitle}</p>
+              </div>
+              <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-white/75 text-secondary shadow-card">
+                <card.icon className="h-7 w-7" />
+              </div>
+            </div>
+          </div>
+        ))}
+      </section>
+
+      <section className="grid gap-5 lg:grid-cols-[1.05fr_0.95fr]">
+        <article className={`rounded-[28px] border border-soft p-6 shadow-card ${primaryFeature.tone}`}>
+          <div className="flex items-start gap-4">
+            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-secondary shadow-card">
+              <PrimaryFeatureIcon className="h-8 w-8" />
+            </div>
+            <div className="min-w-0">
+              <h2 className="font-display text-[2rem] font-extrabold text-secondary">{primaryFeature.title}</h2>
+              <p className="mt-3 text-lg leading-9 text-soft-muted">{primaryFeature.text}</p>
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-3">
+            {primaryFeature.chips.map((chip) => (
+              <Link
+                key={chip}
+                to={primaryFeature.href}
+                className="rounded-[18px] border border-soft bg-white px-5 py-3 text-base font-bold text-secondary shadow-card"
+              >
+                {chip}
+              </Link>
+            ))}
+          </div>
+        </article>
+
+        <div className="grid gap-5">
+          {featurePanels.slice(1).map((panel) => (
+            <Link
+              key={panel.title}
+              to={panel.href}
+              className={`rounded-[28px] border border-soft p-6 shadow-card transition-transform hover:-translate-y-0.5 ${panel.tone}`}
+            >
+              <div className="flex items-start gap-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-white text-secondary shadow-card">
+                  <panel.icon className="h-8 w-8" />
                 </div>
-                <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-[1.4rem] border-[3px] border-ink bg-white shadow-playful">
-                  <s.icon className="h-8 w-8 text-ink" />
+                <div>
+                  <h2 className="font-display text-[2rem] font-extrabold text-secondary">{panel.title}</h2>
+                  <p className="mt-3 text-lg leading-9 text-soft-muted">{panel.text}</p>
                 </div>
-                <h3 className="font-display text-3xl font-extrabold leading-tight text-ink">{s.title}</h3>
-                <p className="mb-8 mt-3 text-base font-bold leading-relaxed text-ink/75">{s.description}</p>
-                <span className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-5 py-3 text-base font-extrabold text-ink shadow-playful transition-all group-hover:translate-x-1">
-                  進入學習
-                  <ArrowRight className="h-4 w-4" />
-                </span>
               </div>
             </Link>
           ))}
         </div>
-      </div>
-    </section>
+      </section>
 
-    <section className="px-4 pb-14 pt-4 md:px-6 lg:px-10">
-      <div className="container mx-auto">
-        <div className="grid gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          <div className="rounded-[2.2rem] border-[4px] border-ink bg-white p-8 shadow-playful">
-            <div className="mb-4 inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-bubble-yellow px-4 py-2 shadow-playful">
-              <Sparkles className="h-4 w-4 text-ink" />
-              <span className="font-display text-base font-extrabold uppercase tracking-[0.13em] text-ink">網站特色</span>
-            </div>
-            <h2 className="font-display text-3xl font-extrabold text-ink md:text-4xl">為家長整理得更清楚、更易用</h2>
-            <div className="mt-6 grid gap-4 md:grid-cols-3">
-              <div className="rounded-[1.6rem] border-[3px] border-ink bg-bubble-pink p-5 shadow-playful">
-                <p className="text-3xl">🧠</p>
-                <p className="mt-3 font-display text-xl font-extrabold text-ink">重點清晰</p>
-                <p className="mt-2 text-base font-bold leading-relaxed text-ink/75">將 AI 概念、工具比較與安全原則整理成家長容易掌握的內容。</p>
-              </div>
-              <div className="rounded-[1.6rem] border-[3px] border-ink bg-teal-light p-5 shadow-playful">
-                <p className="text-3xl">🎯</p>
-                <p className="mt-3 font-display text-xl font-extrabold text-ink">實用導向</p>
-                <p className="mt-2 text-base font-bold leading-relaxed text-ink/75">由理解概念到實際提問、練習與測驗，都圍繞家長真實使用情境。</p>
-              </div>
-              <div className="rounded-[1.6rem] border-[3px] border-ink bg-bubble-green p-5 shadow-playful">
-                <p className="text-3xl">💛</p>
-                <p className="mt-3 font-display text-xl font-extrabold text-ink">陪學友善</p>
-                <p className="mt-2 text-base font-bold leading-relaxed text-ink/75">幫助家長建立陪孩子使用 AI 的節奏、界線與判斷力。</p>
-              </div>
-            </div>
-          </div>
-
-          <div className="rounded-[2.2rem] border-[4px] border-ink bg-coral-light p-8 shadow-playful">
-            <div className="inline-flex items-center gap-2 rounded-full border-[3px] border-ink bg-white px-4 py-2 shadow-playful">
-              <span className="text-xl">🚀</span>
-              <span className="font-display text-base font-extrabold uppercase tracking-[0.13em] text-ink">快速開始</span>
-            </div>
-            <h3 className="mt-5 font-display text-3xl font-extrabold text-ink">今日想由邊度開始？</h3>
-            <div className="mt-5 space-y-4">
-              <Link to="/prompt-skills" className="flex items-center justify-between rounded-[1.4rem] border-[3px] border-ink bg-white px-5 py-4 font-extrabold text-ink shadow-playful transition-all hover:-translate-y-1">
-                <span>學提示詞框架</span>
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link to="/practice" className="flex items-center justify-between rounded-[1.4rem] border-[3px] border-ink bg-bubble-yellow px-5 py-4 font-extrabold text-ink shadow-playful transition-all hover:-translate-y-1">
-                <span>立即做練習</span>
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-              <Link to="/parent-guide" className="flex items-center justify-between rounded-[1.4rem] border-[3px] border-ink bg-white px-5 py-4 font-extrabold text-ink shadow-playful transition-all hover:-translate-y-1">
-                <span>睇家長指南</span>
-                <ArrowRight className="h-5 w-5" />
-              </Link>
-            </div>
-          </div>
+      <section className="rounded-[30px] border border-soft bg-white/90 px-6 py-8 shadow-card md:px-8">
+        <div className="mb-8 flex items-center justify-center gap-4 text-center">
+          <div className="h-px w-14 bg-secondary/35" />
+          <p className="font-display text-[2rem] font-extrabold text-secondary">{copy.sectionTitle}</p>
+          <div className="h-px w-14 bg-secondary/35" />
         </div>
-      </div>
-    </section>
 
-    <footer className="px-4 pb-12 pt-4 md:px-6 lg:px-10">
-      <div className="container mx-auto">
-        <div className="rounded-[2rem] border-[4px] border-ink bg-bubble-cream p-6 text-center shadow-playful">
-          <p className="font-display text-2xl font-extrabold text-ink">家長 AI 學習指南</p>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {modules.map((module) => (
+            <Link
+              key={module.title}
+              to={module.href}
+              className="rounded-[26px] border border-soft bg-white p-5 shadow-card transition-transform hover:-translate-y-0.5"
+            >
+              <div className="flex items-start gap-4">
+                <div className={`flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl ${module.color} text-secondary shadow-card`}>
+                  <module.icon className="h-7 w-7" />
+                </div>
+                <div>
+                  <h3 className="font-display text-[1.55rem] font-extrabold text-secondary">{module.title}</h3>
+                  <p className="mt-2 text-base leading-8 text-soft-muted">{module.description}</p>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
-      </div>
-    </footer>
+      </section>
+    </div>
   </div>
-);
+  );
+};
 
 export default HomePage;

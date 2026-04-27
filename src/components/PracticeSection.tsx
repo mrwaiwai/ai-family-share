@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CheckCircle, XCircle, RotateCcw, ArrowRight, PenLine, Shuffle, Lightbulb, BookOpen, MessageSquare, TrendingUp, Star } from "lucide-react";
 import { analyzePrompt, type FeedbackResult } from "@/lib/promptFeedback";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Exercise {
   id: number;
@@ -54,7 +55,7 @@ const allExercises: Exercise[] = [
       "考慮孩子可能中途分心，加入「溫柔提醒」機制",
     ],
     checkpoints: ["提到孩子的特殊需要", "設計了短回合互動", "加入了遊戲化元素", "有分心時的應對策略"],
-    sampleAnswer: `你是一位有趣的英文遊戲主持人，專門為容易分心的小朋友設計造句遊戲。\n\n規則：\n- 每回合給一個簡單的英文詞（如 cat、run、happy），孩子用它造一個句子\n- 每個句子給 ⭐ 評分（1-3 顆星），並說明為甚麼得這個分數\n- 每 3 回合換一個小遊戲變化（填空、改錯、接龍）\n- 如果孩子 30 秒沒回應，用有趣的方式提醒（「小星星在等你的答案呢！」）\n- 每完成 5 回合，總結進步並鼓勵\n\n孩子 7 歲，英語初學者。開始時說「歡迎來到造句小遊戲！🎮」`,
+    sampleAnswer: `你是一位有趣的英文遊戲主持人，專門為容易分心的孩子設計造句遊戲。\n\n規則：\n- 每回合給一個簡單的英文詞（如 cat、run、happy），孩子用它造一個句子\n- 每個句子給 ⭐ 評分（1-3 顆星），並說明為甚麼得這個分數\n- 每 3 回合換一個小遊戲變化（填空、改錯、接龍）\n- 如果孩子 30 秒沒回應，用有趣的方式提醒（「小星星正在等你的答案！」）\n- 每完成 5 回合，總結進步並鼓勵\n\n孩子 7 歲，英語初學者。開始時說「歡迎來到造句小遊戲！🎮」`,
   },
   {
     id: 4,
@@ -96,7 +97,7 @@ const allExercises: Exercise[] = [
       "保持輕鬆有趣，不要像考試",
     ],
     checkpoints: ["有上傳/描述畫作的步驟", "從畫作延伸到學習活動", "覆蓋多個學習領域", "語氣輕鬆適合幼兒"],
-    sampleAnswer: `你是一位創意幼兒教育導師。我上傳了一幅 6 歲孩子的畫作。\n\n請先觀察畫作，用欣賞的語氣描述你看到的內容（「哇，我看到一間漂亮的房子！旁邊是不是有一隻小狗？」）。\n\n然後從畫作中的元素引出學習活動：\n- 英文：教畫中物件的英文名（sun、house、dog、flower），一次一個\n- 數學：「畫裡有幾朵花？如果再加 2 朵呢？」\n- 常識：「狗狗喜歡吃甚麼？牠們需要甚麼照顧？」\n\n規則：像朋友聊天一樣，不要像老師上課。一次只問一個問題，等孩子回答。`,
+    sampleAnswer: `你是一位創意幼兒教育導師。我上傳了一幅 6 歲孩子的畫作。\n\n請先觀察畫作，用欣賞的語氣描述你看到的內容（「我看到一間漂亮的房子，旁邊有一隻小狗。」）。\n\n然後從畫作中的元素引出學習活動：\n- 英文：教畫中物件的英文名（sun、house、dog、flower），一次一個\n- 數學：「畫裡有幾朵花？如果再加 2 朵呢？」\n- 常識：「小狗喜歡吃甚麼？牠們需要甚麼照顧？」\n\n規則：保持親切對話，不要像老師授課。一次只問一個問題，等孩子回答。`,
   },
   {
     id: 7,
@@ -156,8 +157,163 @@ const allExercises: Exercise[] = [
   },
 ];
 
+const allExercisesEn: Exercise[] = [
+  {
+    id: 1,
+    category: "RGC Framework",
+    categoryIcon: "🎯",
+    scenario: "Your child (age 8) likes dinosaurs and is learning English animal vocabulary.",
+    task: "Write an RGC prompt to help the child learn animal vocabulary through a dinosaur theme.",
+    hints: [
+      "Role: choose a suitable expert (for example, a paleontologist + English teacher).",
+      "Goal: make learning outcomes specific and measurable.",
+      "Context: include age, level, and interests.",
+    ],
+    checkpoints: ["Clear AI role", "Specific goal", "Age and level included", "Interactive approach defined"],
+    sampleAnswer:
+      "[Role] You are a child-friendly English teacher who loves dinosaurs.\n\n[Goal] Help an 8-year-old learn 5-8 animal-related words with simple examples.\n\n[Context] The child is beginner level and loves dinosaurs. Start with dinosaur examples, then connect to other animals. Ask one question at a time.",
+  },
+  {
+    id: 2,
+    category: "Socratic Guidance",
+    categoryIcon: "🤔",
+    scenario: "Your child (age 10) struggles with fractions in math.",
+    task: "Write a Socratic prompt so AI guides understanding through questions instead of giving answers directly.",
+    hints: [
+      "Include a rule: do not provide direct answers.",
+      "Use real-life examples like pizza sharing.",
+      "Start from what the child already knows.",
+    ],
+    checkpoints: ["No direct answers", "Real-life context", "Step-by-step questioning", "Supportive correction strategy"],
+    sampleAnswer:
+      "You are a Socratic math tutor for a 10-year-old.\n\nRules:\n- Never give direct answers\n- Start with daily-life examples (pizza/cake sharing)\n- Ask one question at a time\n- If the child is wrong, give a hint and ask again",
+  },
+  {
+    id: 3,
+    category: "SEN Support",
+    categoryIcon: "💛",
+    scenario: "Your child (age 7, mild ADHD) needs short, engaging English sentence practice.",
+    task: "Design a prompt for short game-like rounds.",
+    hints: [
+      "Keep each round to 1-2 minutes.",
+      "Add game elements like stars and quick praise.",
+      "Add a gentle re-focus reminder.",
+    ],
+    checkpoints: ["SEN needs described", "Short rounds", "Gamified interaction", "Refocus strategy"],
+    sampleAnswer:
+      "You are a fun English game host for a 7-year-old beginner with mild ADHD.\n\nRules:\n- One simple word per round\n- Child makes one sentence\n- Give 1-3 stars with encouragement\n- Change mini-game every 3 rounds\n- If no reply in 30 seconds, give a gentle reminder",
+  },
+  {
+    id: 4,
+    category: "Scenario Simulation",
+    categoryIcon: "🎭",
+    scenario: "Your child (age 11) is preparing for an English speaking exam (restaurant ordering).",
+    task: "Write a role-play prompt with realistic conversation flow.",
+    hints: [
+      "Set AI as a friendly waiter.",
+      "Add one realistic surprise (for example, item sold out).",
+      "Include practical phrases and follow-up feedback.",
+    ],
+    checkpoints: ["Clear role-play setting", "Conversation flow", "Difficulty control", "Useful phrases included"],
+    sampleAnswer:
+      "You are a friendly restaurant waiter helping an 11-year-old practice ordering in English.\n\nFlow:\n1) Greet and ask for order\n2) Offer menu choices\n3) Ask follow-up (drinks, quantity)\n4) Add one small surprise scenario\n5) End with 2-3 improvement tips",
+  },
+  {
+    id: 5,
+    category: "Reverse Prompting",
+    categoryIcon: "🔄",
+    scenario: "Your child (age 6) made a drawing with a sun, house, flowers, and a dog.",
+    task: "Write a prompt that turns the drawing into language, math, and general knowledge activities.",
+    hints: [
+      "Ask AI to describe the drawing warmly first.",
+      "Extend to multiple subjects from one image.",
+      "Keep the tone playful and simple.",
+    ],
+    checkpoints: ["Image-to-learning flow", "Multi-subject extension", "Child-friendly tone", "One-question-at-a-time pacing"],
+    sampleAnswer:
+      "You are a creative early-childhood tutor. I uploaded a child's drawing.\n\nPlease:\n1) Start with positive observation\n2) Introduce 3 vocabulary words\n3) Ask one counting question\n4) Ask one simple life-science question\n5) Wait for response after each question",
+  },
+  {
+    id: 6,
+    category: "Layered Questioning",
+    categoryIcon: "📊",
+    scenario: "Your child (age 9) is reading a short text about the Mid-Autumn Festival.",
+    task: "Write a prompt using Memory → Understanding → Application layers.",
+    hints: [
+      "Give sample questions per layer.",
+      "Move to next layer only after answer.",
+      "Add hinting strategy when the child is stuck.",
+    ],
+    checkpoints: ["Three layers clearly defined", "Examples included", "Step-by-step progression", "Support strategy included"],
+    sampleAnswer:
+      "You are a reading coach for a 9-year-old.\n\nUse 3 layers:\n- Memory: who, when, what\n- Understanding: why, how\n- Application: connect to personal life\n\nRules:\n- Ask one question at a time\n- Give hints without giving final answer",
+  },
+  {
+    id: 7,
+    category: "Intentional Errors",
+    categoryIcon: "❌",
+    scenario: "Your child (age 9) makes careless mistakes in basic math.",
+    task: "Write a prompt where AI occasionally makes small mistakes for the child to detect.",
+    hints: [
+      "Make errors realistic and age-appropriate.",
+      "Ask child to explain why it's wrong.",
+      "Use encouraging language after correction.",
+    ],
+    checkpoints: ["Error-injection rule", "Age-appropriate difficulty", "Reasoning check", "Positive reinforcement"],
+    sampleAnswer:
+      "You are a student named Tim solving grade-3 math. Make one small mistake every 2-3 questions.\n\nRules:\n- Show full steps\n- Ask the child to check your answer\n- If corrected, ask why and praise the explanation",
+  },
+  {
+    id: 8,
+    category: "RGC Framework",
+    categoryIcon: "🎯",
+    scenario: "Your child (age 12) loves space and must write a short report about Mars.",
+    task: "Write an RGC prompt that guides the child to complete a structured report.",
+    hints: [
+      "Role can be a space scientist.",
+      "Define report sections explicitly.",
+      "Use age-appropriate language.",
+    ],
+    checkpoints: ["Professional role", "Clear report structure", "Step-by-step guidance", "Age-appropriate output"],
+    sampleAnswer:
+      "[Role] You are a NASA science mentor.\n[Goal] Help a 12-year-old write a 500-word Mars report with 4 sections.\n[Context] Elementary grade level, strong interest in space. Ask what the child knows before each section.",
+  },
+  {
+    id: 9,
+    category: "Scenario Simulation",
+    categoryIcon: "🎭",
+    scenario: "Your child (age 8) is learning money skills through supermarket shopping.",
+    task: "Write a role-play prompt with item prices and change calculation steps.",
+    hints: [
+      "Provide product list with prices.",
+      "Include total and change calculation.",
+      "Add one discount rule for challenge.",
+    ],
+    checkpoints: ["Clear shopping setup", "Price list included", "Calculation steps", "Age-fit difficulty"],
+    sampleAnswer:
+      "You are a supermarket cashier. Offer 6 items with prices.\n\nFlow:\n1) Ask child to pick 3-4 items\n2) Ask for total cost\n3) Ask for change from $50\n4) Add one discount condition\n5) Give encouraging feedback",
+  },
+  {
+    id: 10,
+    category: "Socratic Guidance",
+    categoryIcon: "🤔",
+    scenario: "Your child (age 11) asks: Why is the sky blue?",
+    task: "Write a Socratic prompt to guide understanding of light scattering.",
+    hints: [
+      "Start from observable daily phenomena.",
+      "Introduce colors-in-light gradually.",
+      "Use simple metaphors and one question per turn.",
+    ],
+    checkpoints: ["Observation-first approach", "Question chain depth", "Age-appropriate metaphors", "Reasoning-focused guidance"],
+    sampleAnswer:
+      "You are a Socratic science tutor.\n\nRules:\n- Do not give direct answer\n- Ask one question at a time\n- Start from sky color changes at different times\n- Use simple metaphor for light scattering\n- End by asking the child to explain in their own words",
+  },
+];
+
 const PracticeSection = () => {
-  const [exercises, setExercises] = useState(allExercises.slice(0, 4));
+  const { language } = useLanguage();
+  const exerciseBank = language === "en" ? allExercisesEn : allExercises;
+  const [exercises, setExercises] = useState(exerciseBank.slice(0, 4));
   const [currentExercise, setCurrentExercise] = useState(0);
   const [userAnswer, setUserAnswer] = useState("");
   const [showHints, setShowHints] = useState(false);
@@ -168,8 +324,15 @@ const PracticeSection = () => {
 
   const exercise = exercises[currentExercise];
 
+  useEffect(() => {
+    setExercises(exerciseBank.slice(0, 4));
+    setCurrentExercise(0);
+    resetState();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language]);
+
   const handleShuffle = () => {
-    const shuffled = [...allExercises].sort(() => Math.random() - 0.5).slice(0, 4);
+    const shuffled = [...exerciseBank].sort(() => Math.random() - 0.5).slice(0, 4);
     setExercises(shuffled);
     setCurrentExercise(0);
     resetState();
@@ -196,29 +359,40 @@ const PracticeSection = () => {
   };
 
   const categoryColors: Record<string, string> = {
-    "RGC 框架": "bg-teal-light text-primary",
-    "蘇格拉底式引導": "bg-blue-50 text-blue-600 dark:bg-blue-950 dark:text-blue-400",
-    "SEN 支援": "bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400",
-    "分層提問": "bg-purple-50 text-purple-600 dark:bg-purple-950 dark:text-purple-400",
-    "情境模擬": "bg-coral-light text-secondary",
-    "逆向工程": "bg-green-50 text-green-600 dark:bg-green-950 dark:text-green-400",
-    "刻意犯錯法": "bg-red-50 text-red-600 dark:bg-red-950 dark:text-red-400",
+    "RGC 框架": "bg-soft-sky text-secondary",
+    "蘇格拉底式引導": "bg-soft-pink text-primary",
+    "SEN 支援": "bg-soft-yellow text-secondary",
+    "分層提問": "bg-soft-mint text-secondary",
+    "情境模擬": "bg-soft-peach text-secondary",
+    "逆向工程": "bg-soft-sky text-secondary",
+    "刻意犯錯法": "bg-soft-peach text-secondary",
+    "RGC Framework": "bg-soft-sky text-secondary",
+    "Socratic Guidance": "bg-soft-pink text-primary",
+    "SEN Support": "bg-soft-yellow text-secondary",
+    "Scenario Simulation": "bg-soft-peach text-secondary",
+    "Reverse Prompting": "bg-soft-sky text-secondary",
+    "Layered Questioning": "bg-soft-mint text-secondary",
+    "Intentional Errors": "bg-soft-peach text-secondary",
   };
 
   return (
     <section className="py-4">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="mb-14">
-          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">✏️ 提示詞實戰練習</h1>
+          <h1 className="mb-4 text-3xl font-bold text-foreground lg:text-4xl">
+            {language === "zh" ? "✏️ 提示詞實戰練習" : "✏️ Prompt Practice Lab"}
+          </h1>
           <p className="max-w-2xl text-lg leading-relaxed text-muted-foreground">
-            這一頁讓家長用真實情境練習寫提示詞，逐步熟習怎樣向 AI 說得更清楚。每次會隨機抽取 4 道題目。
+            {language === "zh"
+              ? "這一頁讓家長用真實情境練習寫提示詞，逐步熟習怎樣向 AI 說得更清楚。每次會隨機抽取 4 道題目。"
+              : "Practice writing prompts with real scenarios. Four exercises are sampled each round."}
           </p>
           <button
             onClick={handleShuffle}
-            className="mt-6 inline-flex items-center gap-2 rounded-xl border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+            className="mt-6 inline-flex items-center gap-2 rounded-full border border-soft bg-white px-5 py-2.5 text-sm font-bold text-foreground shadow-card transition-colors hover:bg-muted"
           >
             <Shuffle className="h-4 w-4" />
-            隨機換題
+            {language === "zh" ? "隨機換題" : "Shuffle"}
           </button>
         </div>
 
@@ -234,24 +408,26 @@ const PracticeSection = () => {
             />
           ))}
           <span className="ml-3 text-sm text-muted-foreground">
-            練習 {currentExercise + 1} / {exercises.length}
+            {language === "zh"
+              ? `練習 ${currentExercise + 1} / ${exercises.length}`
+              : `Exercise ${currentExercise + 1} / ${exercises.length}`}
           </span>
         </div>
 
         <div className="mx-auto max-w-3xl">
           {/* Scenario Card */}
-          <div className="mb-6 rounded-xl border border-border bg-card p-6">
+          <div className="mb-6 rounded-[24px] border border-soft bg-white p-6 shadow-card">
             <div className="mb-4 flex flex-wrap items-center gap-2">
               <span className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-medium ${categoryColors[exercise.category] || "bg-muted text-muted-foreground"}`}>
                 {exercise.categoryIcon} {exercise.category}
               </span>
-              <span className="text-xs text-muted-foreground">練習 #{exercise.id}</span>
+              <span className="text-xs text-muted-foreground">{language === "zh" ? `練習 #${exercise.id}` : `Exercise #${exercise.id}`}</span>
             </div>
             <p className="mb-4 text-foreground leading-relaxed">{exercise.scenario}</p>
-            <div className="rounded-lg bg-muted p-4">
+            <div className="rounded-[18px] border border-soft bg-background p-4">
               <p className="flex items-center gap-2 text-sm font-medium text-foreground">
                 <PenLine className="h-4 w-4 text-primary" />
-                家長練習任務：
+                {language === "zh" ? "家長練習任務：" : "Task:"}
               </p>
               <p className="mt-1 text-sm text-muted-foreground">{exercise.task}</p>
             </div>
@@ -263,11 +439,11 @@ const PracticeSection = () => {
             className="mb-4 inline-flex items-center gap-1.5 text-sm font-medium text-primary transition-colors hover:text-primary/80"
           >
             <Lightbulb className="h-4 w-4" />
-            {showHints ? "隱藏提示" : "需要提示？"}
+            {showHints ? (language === "zh" ? "隱藏提示" : "Hide Hints") : language === "zh" ? "需要提示？" : "Need hints?"}
           </button>
 
           {showHints && (
-            <div className="mb-6 rounded-lg border border-primary/20 bg-teal-light p-4">
+            <div className="mb-6 rounded-[18px] border border-soft bg-soft-sky p-4">
               <ul className="space-y-2">
                 {exercise.hints.map((hint, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm text-foreground">
@@ -284,14 +460,22 @@ const PracticeSection = () => {
             <textarea
               value={userAnswer}
               onChange={(e) => setUserAnswer(e.target.value)}
-              placeholder="在這裡寫你的提示詞……&#10;&#10;💡 小提示：試試用【角色】【目標】【背景】的格式來組織你的提示詞"
+              placeholder={
+                language === "zh"
+                  ? "在這裡寫你的提示詞……&#10;&#10;💡 小提示：試試用【角色】【目標】【背景】的格式來組織你的提示詞"
+                  : "Write your prompt here...&#10;&#10;💡 Tip: try using [Role] [Goal] [Context]."
+              }
               rows={10}
-              className="w-full rounded-xl border border-border bg-card p-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 resize-none"
+              className="w-full resize-none rounded-[24px] border border-soft bg-white p-4 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
             />
             <p className="mt-1 text-xs text-muted-foreground">
               {userAnswer.length > 0
-                ? `已寫 ${userAnswer.length} 字${userAnswer.length < 30 ? "（建議至少 30 字）" : " ✓"}`
-                : "試試把你的想法寫下來"}
+                ? language === "zh"
+                  ? `已寫 ${userAnswer.length} 字${userAnswer.length < 30 ? "（建議至少 30 字）" : " ✓"}`
+                  : `${userAnswer.length} characters${userAnswer.length < 30 ? " (recommended: 30+)" : " ✓"}`
+                : language === "zh"
+                  ? "試試把你的想法寫下來"
+                  : "Start drafting your prompt."}
             </p>
           </div>
 
@@ -302,47 +486,55 @@ const PracticeSection = () => {
                 setSubmitted(true);
                 setShowSample(true);
                 setCheckedItems(Array(exercise.checkpoints.length).fill(false));
-                setFeedback(analyzePrompt(userAnswer, exercise.category));
+                setFeedback(
+                  analyzePrompt(
+                    userAnswer,
+                    exercise.category,
+                    language,
+                  ),
+                );
               }}
               disabled={userAnswer.length < 10}
               className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-all hover:bg-primary/90 disabled:opacity-40 disabled:cursor-not-allowed"
             >
               <CheckCircle className="h-4 w-4" />
-              提交並對照
+              {language === "zh" ? "提交並對照" : "Submit & Compare"}
             </button>
             <button
               onClick={() => {
                 setShowSample(!showSample);
                 if (!showSample) setCheckedItems(Array(exercise.checkpoints.length).fill(false));
               }}
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-5 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-2 rounded-full border border-soft bg-white px-5 py-2.5 text-sm font-bold text-foreground shadow-card transition-colors hover:bg-muted"
             >
               <BookOpen className="h-4 w-4" />
-              {showSample ? "隱藏參考答案" : "直接看參考答案"}
+              {showSample ? (language === "zh" ? "隱藏參考答案" : "Hide Sample") : language === "zh" ? "直接看參考答案" : "Show Sample"}
             </button>
             <button
               onClick={resetState}
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-4 py-2.5 text-sm text-muted-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-2 rounded-full border border-soft bg-white px-4 py-2.5 text-sm text-muted-foreground shadow-card transition-colors hover:bg-muted"
             >
               <RotateCcw className="h-3.5 w-3.5" />
-              重寫
+              {language === "zh" ? "重寫" : "Reset"}
             </button>
           </div>
 
           {/* Sample Answer & Self-Check */}
           {showSample && (
-            <div className="mt-6 rounded-xl border border-primary/20 bg-teal-light p-6">
+            <div className="mt-6 rounded-[24px] border border-soft bg-soft-sky p-6 shadow-card">
               <h4 className="mb-3 flex items-center gap-2 font-semibold text-foreground">
                 <MessageSquare className="h-5 w-5 text-primary" />
-                參考答案
+                {language === "zh" ? "參考答案" : "Sample Answer"}
               </h4>
-              <pre className="whitespace-pre-wrap rounded-lg bg-card p-4 text-sm leading-relaxed text-foreground">
+              <pre className="whitespace-pre-wrap rounded-[18px] border border-soft bg-white p-4 text-sm leading-relaxed text-foreground">
                 {exercise.sampleAnswer}
               </pre>
 
               {submitted && userAnswer.length >= 10 && (
-                <div className="mt-4 rounded-lg bg-card p-4">
-                  <p className="text-sm font-medium text-foreground">✅ 自我檢查（點擊打勾）：</p>
+                <div className="mt-4 rounded-[18px] border border-soft bg-white p-4">
+                  <p className="text-sm font-medium text-foreground">
+                    {language === "zh" ? "✅ 自我檢查（點擊打勾）：" : "✅ Self-check (tap to mark):"}
+                  </p>
                   <ul className="mt-3 space-y-2">
                     {exercise.checkpoints.map((cp, i) => (
                       <li key={i}>
@@ -364,7 +556,9 @@ const PracticeSection = () => {
                   </ul>
                   {checkedItems.length > 0 && (
                     <p className="mt-3 text-xs text-muted-foreground">
-                      已完成 {checkedItems.filter(Boolean).length} / {exercise.checkpoints.length} 項
+                      {language === "zh"
+                        ? `已完成 ${checkedItems.filter(Boolean).length} / ${exercise.checkpoints.length} 項`
+                        : `Completed ${checkedItems.filter(Boolean).length} / ${exercise.checkpoints.length}`}
                     </p>
                   )}
                 </div>
@@ -374,21 +568,21 @@ const PracticeSection = () => {
 
           {/* Feedback Panel */}
           {feedback && submitted && (
-            <div className="mt-6 rounded-xl border border-border bg-card p-6">
+            <div className="mt-6 rounded-[24px] border border-soft bg-white p-6 shadow-card">
               <div className="mb-4 flex items-center justify-between">
                 <h4 className="flex items-center gap-2 font-semibold text-foreground">
                   <TrendingUp className="h-5 w-5 text-primary" />
-                  提示詞分析回饋
+                  {language === "zh" ? "提示詞分析回饋" : "Prompt Feedback"}
                 </h4>
                 <div className="flex items-center gap-2">
                   <div className={`rounded-full px-3 py-1 text-xs font-bold ${
                     feedback.level === "advanced"
-                      ? "bg-teal-light text-primary"
+                      ? "bg-soft-sky text-primary"
                       : feedback.level === "intermediate"
-                      ? "bg-amber-50 text-amber-600 dark:bg-amber-950 dark:text-amber-400"
-                      : "bg-coral-light text-secondary"
+                      ? "bg-soft-mint text-secondary"
+                      : "bg-soft-peach text-secondary"
                   }`}>
-                    {feedback.score}分
+                    {language === "zh" ? `${feedback.score}分` : `${feedback.score} pts`}
                   </div>
                   <div className="flex">
                     {[1, 2, 3].map((s) => (
@@ -408,7 +602,7 @@ const PracticeSection = () => {
               {/* Individual items */}
               <div className="space-y-3">
                 {feedback.items.map((item, i) => (
-                  <div key={i} className={`rounded-lg p-3 ${item.passed ? "bg-teal-light" : "bg-muted"}`}>
+                  <div key={i} className={`rounded-lg p-3 ${item.passed ? "bg-soft-sky" : "bg-muted"}`}>
                     <div className="mb-1 flex items-center gap-2">
                       {item.passed ? (
                         <CheckCircle className="h-4 w-4 flex-shrink-0 text-primary" />
@@ -423,7 +617,7 @@ const PracticeSection = () => {
               </div>
 
               {/* Overall tip */}
-              <div className="mt-4 rounded-lg border border-primary/20 bg-teal-light p-4">
+              <div className="mt-4 rounded-[18px] border border-soft bg-soft-sky p-4">
                 <p className="text-sm leading-relaxed text-foreground">{feedback.overallTip}</p>
               </div>
             </div>
@@ -432,9 +626,9 @@ const PracticeSection = () => {
           <div className="mt-8 text-center">
             <button
               onClick={handleNext}
-              className="inline-flex items-center gap-2 rounded-lg border border-border bg-card px-6 py-2.5 text-sm font-medium text-foreground transition-colors hover:bg-muted"
+              className="inline-flex items-center gap-2 rounded-full border border-soft bg-white px-6 py-2.5 text-sm font-bold text-foreground shadow-card transition-colors hover:bg-muted"
             >
-              下一題
+              {language === "zh" ? "下一題" : "Next"}
               <ArrowRight className="h-4 w-4" />
             </button>
           </div>

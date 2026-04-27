@@ -1,8 +1,10 @@
 import QuizSection from "@/components/QuizSection";
 
 const QuizPage = () => (
-  <div className="py-12 lg:py-16">
-    <QuizSection />
+  <div className="bg-[linear-gradient(180deg,rgba(255,255,255,0.9),rgba(255,242,233,0.98))] p-5 md:p-7">
+    <div className="rounded-[30px] border border-soft bg-[linear-gradient(180deg,rgba(255,245,239,0.98),rgba(255,255,255,0.96))] p-3 shadow-card md:p-4">
+      <QuizSection />
+    </div>
   </div>
 );
 

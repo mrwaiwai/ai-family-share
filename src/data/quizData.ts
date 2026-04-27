@@ -6,7 +6,7 @@ export interface QuizQuestion {
   explanation: string;
 }
 
-export const quizQuestions: QuizQuestion[] = [
+export const quizQuestionsZh: QuizQuestion[] = [
   {
     id: 1,
     question: "以下哪一項最能描述「生成式人工智能」(Generative AI) 的特點？",
@@ -198,3 +198,188 @@ export const quizQuestions: QuizQuestion[] = [
       "AI 是輔助工具而非替代品。家長應保持參與，引導孩子批判性地評估 AI 的回應，培養獨立思考能力，而不是被動接受所有 AI 的答案。",
   },
 ];
+
+export const quizQuestionsEn: QuizQuestion[] = [
+  {
+    id: 1,
+    question: "Which option best describes Generative AI?",
+    options: [
+      "It only follows fixed rules",
+      "It can learn patterns and generate new content",
+      "It can only do speech recognition",
+      "It can only perform calculations",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Generative AI can create text, images, code, and more based on learned patterns, unlike traditional rule-based systems.",
+  },
+  {
+    id: 2,
+    question: "In the RGC framework, what does R stand for?",
+    options: ["Context", "Goal", "Rule", "Role"],
+    correctIndex: 3,
+    explanation: "RGC stands for Role, Goal, and Context. Role defines who the AI should act as.",
+  },
+  {
+    id: 3,
+    question: "What is the core idea of Socratic prompting?",
+    options: [
+      "Give the correct answer directly",
+      "Provide many drill questions",
+      "Guide children by asking questions",
+      "Read the text aloud only",
+    ],
+    correctIndex: 2,
+    explanation:
+      "Socratic prompting encourages children to think by answering guided questions, instead of receiving answers directly.",
+  },
+  {
+    id: 4,
+    question: "Why is parental guidance important when children use AI?",
+    options: [
+      "Children cannot use computers",
+      "AI is too complex to log in",
+      "Children may skip thinking and see unsuitable content",
+      "AI only works with parent accounts",
+    ],
+    correctIndex: 2,
+    explanation:
+      "Children may accept AI answers too quickly and can encounter unsafe content, so parent guidance is essential.",
+  },
+  {
+    id: 5,
+    question: "What is reverse prompting best used for?",
+    options: [
+      "Upload a child's work and infer learning directions",
+      "Automatic grading only",
+      "Generate exam papers only",
+      "Do pure arithmetic",
+    ],
+    correctIndex: 0,
+    explanation:
+      "Reverse prompting starts from a child's output (drawing/writing) and generates suitable follow-up learning prompts.",
+  },
+  {
+    id: 6,
+    question: "In TPG, what does P mean?",
+    options: ["Program", "Process", "Prompt", "Plan"],
+    correctIndex: 1,
+    explanation: "TPG = Think, Process, Generate.",
+  },
+  {
+    id: 7,
+    question: "Which is NOT direct output from Generative AI?",
+    options: ["Text", "Image", "Physical object", "Video"],
+    correctIndex: 2,
+    explanation: "Generative AI creates digital outputs, not physical objects directly.",
+  },
+  {
+    id: 8,
+    question: "What is the correct order in layered questioning?",
+    options: [
+      "Application → Understanding → Memory",
+      "Understanding → Application → Memory",
+      "Memory → Application → Understanding",
+      "Memory → Understanding → Application",
+    ],
+    correctIndex: 3,
+    explanation:
+      "A good progression is Memory first, then Understanding, and finally Application.",
+  },
+  {
+    id: 9,
+    question: "How should the Goal in RGC be written?",
+    options: [
+      "Keep it vague",
+      "Make it specific and measurable",
+      "Use one word only",
+      "Skip it and let AI decide",
+    ],
+    correctIndex: 1,
+    explanation:
+      "Specific goals help AI respond more accurately (for example: learn 5 weather words).",
+  },
+  {
+    id: 10,
+    question: "Which is the best practice for AI-assisted learning at home?",
+    options: [
+      "Let AI replace parents completely",
+      "Allow unrestricted use without checks",
+      "Trust all AI answers as correct",
+      "Use AI as a tool while parents guide critical thinking",
+    ],
+    correctIndex: 3,
+    explanation:
+      "AI should support, not replace, parent guidance and a child's independent thinking.",
+  },
+  {
+    id: 11,
+    question: "Which approach is most effective when using AI to support SEN learners?",
+    options: [
+      "Let AI fully replace teachers and parents",
+      "Use repetitive drills only",
+      "Adjust prompts to the child's needs and use short personalized rounds",
+      "Let the child use AI with no adult involvement",
+    ],
+    correctIndex: 2,
+    explanation:
+      "SEN learners benefit from personalized prompting, shorter interaction rounds, and clear step-by-step guidance.",
+  },
+  {
+    id: 12,
+    question: "What do ChatGPT, DeepSeek, and Gemini have in common?",
+    options: [
+      "They are all built by the same company",
+      "They only process English",
+      "They have no usage limits",
+      "They are large language models that understand and generate language",
+    ],
+    correctIndex: 3,
+    explanation:
+      "All three are LLM-based tools. They differ by provider and strengths, but share core language understanding/generation abilities.",
+  },
+  {
+    id: 13,
+    question: "What is the main benefit of scenario simulation prompts?",
+    options: [
+      "Reduce AI computation load",
+      "Force shorter AI answers",
+      "Create immersive practice in realistic contexts",
+      "Restrict children to one language only",
+    ],
+    correctIndex: 2,
+    explanation:
+      "Scenario simulation increases engagement and transfer by letting children practice skills in realistic situations.",
+  },
+  {
+    id: 14,
+    question: "Why include rules like 'ask one question at a time' in prompts?",
+    options: [
+      "To control pace and avoid information overload",
+      "To reduce costs only",
+      "To guarantee zero mistakes",
+      "To force shorter responses only",
+    ],
+    correctIndex: 0,
+    explanation:
+      "Interaction pacing rules are especially helpful for young learners to process information step by step.",
+  },
+  {
+    id: 15,
+    question: "Which statement best reflects responsible parent-child AI use?",
+    options: [
+      "AI should replace all parent guidance",
+      "Children should freely try everything without boundaries",
+      "AI answers should be accepted without checking",
+      "Parents should stay involved and guide verification and critical thinking",
+    ],
+    correctIndex: 3,
+    explanation:
+      "Responsible use means treating AI as a support tool while parents guide verification, reflection, and independent thinking.",
+  },
+];
+
+export const getQuizQuestions = (language: "zh" | "en"): QuizQuestion[] =>
+  language === "en" ? quizQuestionsEn : quizQuestionsZh;
+
+export const quizQuestions: QuizQuestion[] = quizQuestionsZh;
