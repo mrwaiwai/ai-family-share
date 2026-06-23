@@ -5,6 +5,7 @@ import {
   ClipboardCheck,
   Gamepad2,
   Lightbulb,
+  MessageCircleHeart,
   PenLine,
   ShieldCheck,
   Sparkles,
@@ -41,7 +42,7 @@ const HomePage = () => {
 
   const overviewCards = [
     {
-      title: "5+",
+      title: "6+",
       subtitle: language === "zh" ? "家長學習主題" : "Parent Learning Topics",
       icon: BrainCircuit,
       color: "bg-[linear-gradient(135deg,rgba(255,248,213,0.95),rgba(255,241,196,0.72))]",
@@ -146,6 +147,16 @@ const HomePage = () => {
       href: "/parent-guide",
       icon: Users,
       color: "bg-soft-mint",
+    },
+    {
+      title: language === "zh" ? "開放式回應練習" : "Open Response Practice",
+      description:
+        language === "zh"
+          ? "把日常催促或批評，改成讓孩子有空間思考和表達的溫柔回應。"
+          : "Turn everyday pressure or criticism into gentle responses that give children room to think and speak.",
+      href: "/open-response-practice",
+      icon: MessageCircleHeart,
+      color: "bg-[#dff6eb]",
     },
   ];
   const primaryFeature = featurePanels[0];
