@@ -11,6 +11,7 @@ const PromptSkillsPage = lazy(() => import("@/pages/PromptSkillsPage"));
 const PracticePage = lazy(() => import("@/pages/PracticePage"));
 const QuizPage = lazy(() => import("@/pages/QuizPage"));
 const ParentGuidePage = lazy(() => import("@/pages/ParentGuidePage"));
+const OpenResponsePracticePage = lazy(() => import("@/pages/OpenResponsePracticePage"));
 const CertificatePreviewPage = lazy(() => import("@/pages/CertificatePreviewPage"));
 const NotFound = lazy(() => import("@/pages/NotFound"));
 
@@ -41,6 +42,7 @@ const App = () => (
               <Route path="/practice" element={<PracticePage />} />
               <Route path="/quiz" element={<QuizPage />} />
               <Route path="/parent-guide" element={<ParentGuidePage />} />
+              <Route path="/open-response-practice" element={<OpenResponsePracticePage />} />
               <Route path="/certificate-preview" element={<CertificatePreviewPage />} />
             </Route>
             <Route path="*" element={<NotFound />} />

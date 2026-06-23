@@ -6,6 +6,7 @@ import {
   Home,
   Lightbulb,
   Menu,
+  MessageCircleHeart,
   PanelLeftClose,
   PanelLeftOpen,
   PenLine,
@@ -25,6 +26,7 @@ const navItems = [
   { to: "/practice", icon: PenLine, color: "bg-soft-sky", label: { zh: "提示詞練習", en: "Prompt Practice" } },
   { to: "/quiz", icon: ClipboardCheck, color: "bg-[#ffe1b6]", label: { zh: "AI 知識測驗", en: "AI Quiz" } },
   { to: "/parent-guide", icon: ShieldCheck, color: "bg-soft-pink", label: { zh: "家長指南", en: "Parent Guide" } },
+  { to: "/open-response-practice", icon: MessageCircleHeart, color: "bg-soft-mint", label: { zh: "開放式回應練習", en: "Open Response Practice" } },
 ];
 
 const pageTitles = {
@@ -35,6 +37,7 @@ const pageTitles = {
     "/practice": "提示詞練習",
     "/quiz": "AI 知識測驗",
     "/parent-guide": "家長指南",
+    "/open-response-practice": "開放式回應練習",
   },
   en: {
     "/": "Parent AI Learning Guide",
@@ -43,6 +46,7 @@ const pageTitles = {
     "/practice": "Prompt Practice",
     "/quiz": "AI Quiz",
     "/parent-guide": "Parent Guide",
+    "/open-response-practice": "Open Response Practice",
   },
 };
 

@@ -14,6 +14,7 @@ import {
   BookMarked,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Link } from "react-router-dom";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 type AgeGuideline = { age: string; level: string; detail: string };
@@ -275,6 +276,23 @@ const ParentGuidePage = () => {
             </div>
           </div>
         </div>
+
+        <section className="rounded-[30px] border border-soft bg-[linear-gradient(135deg,rgba(234,250,254,0.96),rgba(255,238,243,0.9))] p-6 shadow-card md:p-8">
+          <div className="flex flex-col gap-5 md:flex-row md:items-center md:justify-between">
+            <div className="max-w-2xl">
+              <div className="inline-flex items-center gap-2 rounded-full border border-soft bg-white/90 px-4 py-2 shadow-card">
+                <MessageSquare className="h-4 w-4 text-secondary" />
+                <span className="text-sm font-extrabold text-ink">{isEn ? "New parent practice" : "新增家長練習"}</span>
+              </div>
+              <h2 className="mt-4 font-display text-3xl font-extrabold text-ink">{isEn ? "Practise open responses" : "練習開放式回應"}</h2>
+              <p className="mt-3 text-base font-semibold leading-relaxed text-ink/75">{isEn ? "Transform five everyday parent phrases into questions that give children more room to think and speak." : "將 5 句日常親子說話，改成讓孩子有更多空間思考和表達的開放式回應。"}</p>
+            </div>
+            <Link to="/open-response-practice" className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full bg-primary px-5 py-3.5 font-extrabold text-primary-foreground shadow-card transition-transform hover:-translate-y-0.5">
+              {isEn ? "Start practice" : "開始練習"}
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </section>
 
         <div className="grid gap-6 xl:grid-cols-[0.95fr_2.05fr]">
           <aside className="space-y-6 xl:sticky xl:top-24 xl:self-start">
